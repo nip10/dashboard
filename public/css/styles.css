@@ -1,0 +1,238 @@
+html {
+    background: #5f2c82;                                             /* fallback for old browsers */
+    background: -webkit-linear-gradient(to left, #de6161 , #2657eb); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to left, #de6161 , #2657eb);         /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+body {
+    background-color: transparent;
+    font-family: 'Open Sans', sans-serif;
+}
+
+ul {
+    list-style: none;
+    text-decoration: none;
+}
+
+p {
+    margin: 0;
+}
+
+hr {
+    margin: 0 0 10px 0;
+}
+
+a {
+    text-decoration: none !important;
+}
+
+img {
+    border: none;
+}
+
+/*WEATHER*/
+
+.weather {
+    width: 100%;
+    height: 450px;
+}
+
+.weather-current {
+    width: 100%;
+    height: 190px;
+    padding: 20px;
+}
+
+.weather-current img {
+    width: 150px;
+    height: 150px;
+    float: left;
+}
+
+.weather-degree {
+    font-size: 50px;
+    text-align: center;
+    padding-top: 20px;
+}
+
+.weather-description {
+    font-size: 25px;
+    text-align: center;
+}
+
+.weather-forecast {
+    margin-top: 30px;
+}
+
+.weather-forecast ul {
+    width: 100%;
+    height: 150px;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+.weather-forecast li {
+    width: 25%;
+    height: 150px;
+    float: left;
+    text-align: center;
+    display: block;
+    position: relative;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    background: rgba(244, 244, 244, 0.2);
+    border-bottom: 1px solid rgba(215, 215, 215, 0.2);
+    border-left: 1px solid rgba(215, 215, 215, 0.2);
+}
+
+.weather-forecast li div:last-child {
+    width: 100%;
+    height: 21px;
+    position: absolute;
+    bottom: 0;
+    margin: 0;
+    padding: 0;
+    line-height: 21px;
+}
+
+.weather-forecast img {
+    width: 50px;
+    height: 50px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.weather-forecast ul li a {
+    border-bottom: 0;
+    display: block;
+    color: #1E2023;
+    background: transparent;
+    pointer-events: none;
+    cursor: default;
+}
+
+.day-title {
+    height: 21px;
+    line-height: 21px;
+    border-bottom: 1px solid rgba(215, 215, 215, 0.2);
+    margin: 0;
+    padding: 0;
+}
+
+.temps {
+    margin: 5px 0 0 0;
+    padding: 0;
+}
+
+.cond-text {
+    margin: 0;
+    padding: 7px 2px 0 2px;
+    line-height: 14px;
+}
+
+.pop {
+    font-weight: normal;
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    background-image: url(../images/weather/sprite-common-vert.png);
+    background-repeat: no-repeat;
+    background-position: 0 -383px;
+    /* padding-left: 19px; */
+    vertical-align: middle;
+    position: relative;
+    top: -1px;
+}
+
+/*EMAIL*/
+
+.email {
+    width: 100%;
+    height: 450px;
+}
+
+/*TV*/
+
+.tv {
+    width: 100%;
+    height: 450px;
+}
+
+.tv-list {
+    float: left;
+    padding: 10px 0 0 0;
+    margin: 0 10px 0 0;
+}
+
+.tv-list li {
+    height: 70px;
+    margin: 0 0 5px 0;
+    color: #e4ccff;
+    background: rgba(244, 244, 244, 0.1);
+}
+
+.tv-list li.today {
+    margin: 10px 0;
+    border: 1px solid black;
+}
+
+.tv-list.tv-list-left {
+    width: 70px;
+    margin-left: 15px;
+}
+
+.tv-list.tv-list-left li {
+    font-size: 20px;
+    text-align: center;
+    padding: 7px 0 0 0;
+    line-height: 25px;
+}
+
+.tv-list-right p {
+    padding-left: 10px;
+}
+
+.tv-list-right p:first-child {
+    padding-top: 2px;
+}
+
+.tv-list.tv-list-right {
+    width: 330px;
+}
+
+.tvshowlinks {
+    float: right;
+}
+
+/*MOVIES*/
+
+.movies {
+    width: 100%;
+    height: 450px;
+}
+
+.movies-container {
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.movies-container img {
+    display: inline-block;
+    width: 210px;
+    height: 315px;
+}
+
+.movies-container img:first-child {
+    margin-right: 10px;
+}
+
+/*CENTER*/
+
+.welcome {
+    text-align: center;
+    font-size: 80px;
+    margin-top: 150px;
+}
