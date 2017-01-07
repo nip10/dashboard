@@ -1,0 +1,143 @@
+doctype html
+html
+    head
+        meta(charset='UTF-8')
+        title #{title}
+        link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css', integrity='sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u', crossorigin='anonymous')
+        link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Open+Sans')
+        link(rel='stylesheet', href='./css/styles.css', media='screen')
+    body
+        .container-fluid
+            .row
+                .col-md-3(name='left')
+                    .weather
+                        h2
+                            i.fa.fa-sun-o
+                            |  Weather
+                        hr
+                        .weather-current
+                            img(src='https://placehold.it/150x150')
+                            .p.weather-degree 20.1 ºC
+                            .p.weather-description Clear
+                        .weather-forecast
+                            ul
+                                li
+                                    a
+                                        .day-title
+                                            | Sat 7/1
+                                        .temps
+                                            span.hi 12
+                                            span.split |
+                                            span.lo 3
+                                        div
+                                            img(src='https://placehold.it/50x50')
+                                        .cond-text
+                                            | Clear
+                                        div
+                                            span.pop
+                                            span  60 % / 5 mm
+                                li
+                                    a
+                                        .day-title
+                                            | Sat 7/1
+                                        .temps
+                                            span.hi 12
+                                            span.split |
+                                            span.lo 3
+                                        div
+                                            img(src='https://placehold.it/50x50')
+                                        .cond-text
+                                            | Clear
+                                        div
+                                            span.pop
+                                            span  60 % / 5 mm
+                                li
+                                    a
+                                        .day-title
+                                            | Sat 7/1
+                                        .temps
+                                            span.hi 12
+                                            span.split |
+                                            span.lo 3
+                                        div
+                                            img(src='https://placehold.it/50x50')
+                                        .cond-text
+                                            | Clear
+                                        div
+                                            span.pop
+                                            span  60 % / 5 mm
+                                li
+                                    a
+                                        .day-title
+                                            | Sat 7/1
+                                        .temps
+                                            span.hi 12
+                                            span.split |
+                                            span.lo 3
+                                        div
+                                            img(src='https://placehold.it/50x50')
+                                        .cond-text
+                                            | Clear
+                                        div
+                                            span.pop
+                                            span 60 % / 5 mm
+                    .email
+                        h2
+                            i.fa.fa-envelope-o
+                            |  Email
+                        hr
+                .col-md-6(name='center')
+                    p.welcome Welcome
+                .col-md-3(name='right')
+                    .tv
+                        h2
+                            i.fa.fa-television
+                            |  TV Shows
+                        hr
+                        if tv
+                            ul.tv-list.tv-list-left
+                                li
+                                    p 7
+                                    p Jan
+                                li
+                                    p 8
+                                    p Jan
+                                li.today
+                                    p 9
+                                    p Jan
+                                li
+                                    p 10
+                                    p Jan
+                                li
+                                    p 11
+                                    p Jan
+
+                            ul.tv-list.tv-list-right
+                                li
+                                    p Big Bang Theory S10E07
+                                    p Something S03E99
+                                li
+                                    p Blacklist S04E05
+                                    p Something S03E32
+                                li.today
+                                    p Simpsons S25E01
+                                li
+                                    p Chicago PD S04E03
+                                li
+                                    p Homeland S06E01
+                        - else
+                            p Something went wrong
+
+                    .movies
+                        h2
+                            i.fa.fa-film
+                            |  Movies
+                        hr
+                        .movies-container
+                            img(src='https://placehold.it/210x315').movies-img
+                            img(src='https://placehold.it/210x315').movies-img
+
+        script(src='https://code.jquery.com/jquery-2.2.4.min.js', integrity='sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=', crossorigin='anonymous')
+        script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js', integrity='sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa', crossorigin='anonymous')
+        script(src='https://use.fontawesome.com/e624a4110b.js')
+        script(src='./js/app.js')
