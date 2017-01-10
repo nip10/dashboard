@@ -229,6 +229,47 @@ img {
     margin-right: 10px;
 }
 
+.movie {
+    display: inline-block;
+    width:210px;
+    height:315px;
+    background: url(../images/dev/210x315.png) no-repeat;
+    margin-right: 10px;
+}
+
+.movie .movie-overlay {
+    position:relative;
+    top:0px;
+    width:210px;
+    height:315px;
+    background:#575757;
+    opacity:0;
+}
+
+.movie:hover .movie-overlay {
+    opacity:0.7;
+}
+
+/*.m2 {
+    display: inline-block;
+    width:210px;
+    height:315px;
+    background: url(../images/dev/210x315.png) no-repeat;
+    }
+
+.m2 .mm2{
+    position:relative;
+    top:0px;
+    width:210px;
+    height:315px;
+    background:#FF2400;
+    opacity:0;
+}
+
+.m2:hover .mm2 {
+    opacity:0.7;
+}*/
+
 /*CENTER*/
 
 .welcome {

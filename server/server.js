@@ -1,9 +1,14 @@
+require('./config/config');
+
 const path = require('path');
 const morgan = require('morgan');
 const pug = require('pug');
 const express = require('express');
 const app = express();
-const port = 3000;
+const port = process.env.PORT;
+
+const {Movies} = require('./models/movies');
+const {Weather} = require('./models/weather');
 
 // Morgan for req logs
 app.use(morgan('dev'));
@@ -15,12 +20,47 @@ app.use(express.static(path.join(__dirname, '../public')));
 // Set pug as view engine
 app.set('view engine', 'pug');
 
+// VIEWS
+
 app.get('/', (req, res) => {
     res.render('dashboard', {
         title: 'Dashboard',
         tv: true
     });
 });
+
+// API
+// Movies
+app.get('/api/movies', (req, res) => {
+    Movies.getMovies().then((movies) => {
+        res.send(movies);
+    });
+});
+
+// Weather
+// Conditions
+app.get('/api/weather/conditions', (req, res) => {
+    Weather.getConditions().then((conditions) => {
+        res.send({
+            location: conditions.current_observation.display_location.full,
+            temperature: conditions.current_observation.temp_c,
+            humidity: conditions.current_observation.relative_humidity,
+            description: conditions.current_observation.weather,
+            icon: conditions.current_observation.icon,
+            localtime: conditions.current_observation.local_time_rfc822,
+            lastupdate: conditions.current_observation.observation_time_rfc822
+        });
+    });
+});
+
+// Forecast
+app.get('/api/weather/forecast', (req, res) => {
+    Weather.getForecast().then((forecast) => {
+        res.send(forecast);
+    });
+});
+
+// ERRORS
 
 app.use(function (err, req, res, next) {
   console.log(err);

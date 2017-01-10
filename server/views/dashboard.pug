@@ -16,9 +16,9 @@ html
                             |  Weather
                         hr
                         .weather-current
-                            img(src='https://placehold.it/150x150')
-                            .p.weather-degree 20.1 ºC
-                            .p.weather-description Clear
+                            img(src='./images/dev/150x150.png')
+                            .p.weather-degree
+                            .p.weather-description
                         .weather-forecast
                             ul
                                 li
@@ -30,7 +30,7 @@ html
                                             span.split |
                                             span.lo 3
                                         div
-                                            img(src='https://placehold.it/50x50')
+                                            img(src='./images/dev/50x50.png')
                                         .cond-text
                                             | Clear
                                         div
@@ -45,7 +45,7 @@ html
                                             span.split |
                                             span.lo 3
                                         div
-                                            img(src='https://placehold.it/50x50')
+                                            img(src='./images/dev/50x50.png')
                                         .cond-text
                                             | Clear
                                         div
@@ -60,7 +60,7 @@ html
                                             span.split |
                                             span.lo 3
                                         div
-                                            img(src='https://placehold.it/50x50')
+                                            img(src='./images/dev/50x50.png')
                                         .cond-text
                                             | Clear
                                         div
@@ -75,7 +75,7 @@ html
                                             span.split |
                                             span.lo 3
                                         div
-                                            img(src='https://placehold.it/50x50')
+                                            img(src='./images/dev/50x50.png')
                                         .cond-text
                                             | Clear
                                         div
@@ -134,8 +134,10 @@ html
                             |  Movies
                         hr
                         .movies-container
-                            img(src='https://placehold.it/210x315').movies-img
-                            img(src='https://placehold.it/210x315').movies-img
+                            .movie
+                                .movie-overlay
+                            .movie
+                                .movie-overlay
 
         script(src='https://code.jquery.com/jquery-2.2.4.min.js', integrity='sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=', crossorigin='anonymous')
         script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js', integrity='sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa', crossorigin='anonymous')
