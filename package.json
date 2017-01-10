@@ -18,10 +18,11 @@
   "homepage": "https://github.com/nip10/dashboard#readme",
   "dependencies": {
     "express": "^4.14.0",
-    "pug": "^2.0.0-beta6"
+    "pug": "^2.0.0-beta6",
+    "request": "^2.79.0"
   },
   "devDependencies": {
     "nodemon": "^1.11.0",
-    "morgan": "^1.7.0",
+    "morgan": "^1.7.0"
   }
 }
