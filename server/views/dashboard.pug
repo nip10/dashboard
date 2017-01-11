@@ -21,66 +21,51 @@ html
                             .p.weather-description
                         .weather-forecast
                             ul
-                                li
-                                    a
-                                        .day-title
-                                            | Sat 7/1
-                                        .temps
-                                            span.hi 12
-                                            span.split |
-                                            span.lo 3
-                                        div
-                                            img(src='./images/dev/50x50.png')
-                                        .cond-text
-                                            | Clear
-                                        div
-                                            span.pop
-                                            span  60 % / 5 mm
-                                li
-                                    a
-                                        .day-title
-                                            | Sat 7/1
-                                        .temps
-                                            span.hi 12
-                                            span.split |
-                                            span.lo 3
-                                        div
-                                            img(src='./images/dev/50x50.png')
-                                        .cond-text
-                                            | Clear
-                                        div
-                                            span.pop
-                                            span  60 % / 5 mm
-                                li
-                                    a
-                                        .day-title
-                                            | Sat 7/1
-                                        .temps
-                                            span.hi 12
-                                            span.split |
-                                            span.lo 3
-                                        div
-                                            img(src='./images/dev/50x50.png')
-                                        .cond-text
-                                            | Clear
-                                        div
-                                            span.pop
-                                            span  60 % / 5 mm
-                                li
-                                    a
-                                        .day-title
-                                            | Sat 7/1
-                                        .temps
-                                            span.hi 12
-                                            span.split |
-                                            span.lo 3
-                                        div
-                                            img(src='./images/dev/50x50.png')
-                                        .cond-text
-                                            | Clear
-                                        div
-                                            span.pop
-                                            span 60 % / 5 mm
+                                li(data-day='0')
+                                    p.day-title= weather.days[0]
+                                    p.temps
+                                        span.hi
+                                        span |
+                                        span.lo
+                                    img(src='./images/dev/50x50.png')
+                                    p.cond-text
+                                    div
+                                        span.pop
+                                        span
+                                li(data-day='1')
+                                    p.day-title= weather.days[1]
+                                    p.temps
+                                        span.hi
+                                        span |
+                                        span.lo
+                                    img(src='./images/dev/50x50.png')
+                                    p.cond-text
+                                    div
+                                        span.pop
+                                        span
+                                li(data-day='2')
+                                    p.day-title= weather.days[2]
+                                    p.temps
+                                        span.hi
+                                        span |
+                                        span.lo
+                                    img(src='./images/dev/50x50.png')
+                                    p.cond-text
+                                    div
+                                        span.pop
+                                        span
+                                li(data-day='3')
+                                    p.day-title= weather.days[3]
+                                    p.temps
+                                        span.hi
+                                        span |
+                                        span.lo
+                                    img(src='./images/dev/50x50.png')
+                                    p.cond-text
+                                    div
+                                        span.pop
+                                        span
+                        p.location
                     .email
                         h2
                             i.fa.fa-envelope-o
@@ -88,46 +73,38 @@ html
                         hr
                 .col-md-6(name='center')
                     p.welcome Welcome
+
                 .col-md-3(name='right')
                     .tv
                         h2
                             i.fa.fa-television
                             |  TV Shows
                         hr
-                        if tv
-                            ul.tv-list.tv-list-left
-                                li
-                                    p 7
-                                    p Jan
-                                li
-                                    p 8
-                                    p Jan
-                                li.today
-                                    p 9
-                                    p Jan
-                                li
-                                    p 10
-                                    p Jan
-                                li
-                                    p 11
-                                    p Jan
+                        ul.tv-list.tv-list-left
+                            li
+                                p= tv.days[0]
+                            li
+                                p= tv.days[1]
+                            li.today
+                                p= tv.days[2]
+                            li
+                                p= tv.days[3]
+                            li
+                                p= tv.days[4]
 
-                            ul.tv-list.tv-list-right
-                                li
-                                    p Big Bang Theory S10E07
-                                    p Something S03E99
-                                li
-                                    p Blacklist S04E05
-                                    p Something S03E32
-                                li.today
-                                    p Simpsons S25E01
-                                li
-                                    p Chicago PD S04E03
-                                li
-                                    p Homeland S06E01
-                        - else
-                            p Something went wrong
-
+                        ul.tv-list.tv-list-right
+                            li
+                                p Big Bang Theory S10E07
+                                p Something S03E99
+                            li
+                                p Blacklist S04E05
+                                p Something S03E32
+                            li.today
+                                p Simpsons S25E01
+                            li
+                                p Chicago PD S04E03
+                            li
+                                p Homeland S06E01
                     .movies
                         h2
                             i.fa.fa-film

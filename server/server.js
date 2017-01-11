@@ -9,6 +9,7 @@ const port = process.env.PORT;
 
 const {Movies} = require('./models/movies');
 const {Weather} = require('./models/weather');
+const {Days} = require('./models/days');
 
 // Morgan for req logs
 app.use(morgan('dev'));
@@ -21,11 +22,16 @@ app.use(express.static(path.join(__dirname, '../public')));
 app.set('view engine', 'pug');
 
 // VIEWS
-
+// dashboard
 app.get('/', (req, res) => {
     res.render('dashboard', {
         title: 'Dashboard',
-        tv: true
+        tv: {
+            days: Days.getList(5, -2, 'D MMM')
+        },
+        weather: {
+            days: Days.getList(4, 0, 'ddd, D MMM')
+        }
     });
 });
 
@@ -37,11 +43,11 @@ app.get('/api/movies', (req, res) => {
     });
 });
 
-// Weather
+// WEATHER
 // Conditions
 app.get('/api/weather/conditions', (req, res) => {
     Weather.getConditions().then((conditions) => {
-        res.send({
+        res.status(200).send({
             location: conditions.current_observation.display_location.full,
             temperature: conditions.current_observation.temp_c,
             humidity: conditions.current_observation.relative_humidity,
@@ -56,7 +62,7 @@ app.get('/api/weather/conditions', (req, res) => {
 // Forecast
 app.get('/api/weather/forecast', (req, res) => {
     Weather.getForecast().then((forecast) => {
-        res.send(forecast);
+        res.status(200).send(forecast);
     });
 });
 
