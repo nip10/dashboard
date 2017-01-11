@@ -20,7 +20,6 @@ Weather.getConditions = () => {
         }, function (error, response, body) {
             if (response.statusCode === 200 && !error) {
                 let bodyJSON = JSON.parse(body);
-                console.log(bodyJSON);
                 resolve(bodyJSON);
             } else {
                 reject('Erro');
@@ -36,8 +35,7 @@ Weather.getForecast = () => {
         }, function (error, response, body) {
             if (response.statusCode === 200 && !error) {
                 let bodyJSON = JSON.parse(body);
-                console.log(bodyJSON);
-                resolve(bodyJSON);
+                resolve(bodyJSON.forecast.simpleforecast);
             } else {
                 reject('Erro');
             }

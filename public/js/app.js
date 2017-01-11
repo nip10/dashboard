@@ -1,5 +1,6 @@
 var d = new Date();
 var timeH = d.getHours();
+// var newDate = new Date(Date.now() + 24*60*60*1000);
 
 $(function() {
     $.get('http://localhost:3000/api/movies')
@@ -20,12 +21,30 @@ $(function() {
         })
         .done(function(data, textStatus, jqXHR) {
             logAjaxDone(data, textStatus, jqXHR);
+            $('.location').text(data.location);
             $('.weather-degree').text(data.temperature + ' ºC');
             $('.weather-description').text(data.description);
             if (timeH < 7 || timeH > 20) {
                 data.icon = 'nt_' + data.icon;
             }
             $('.weather-current img').attr('src', '/images/weather/' + data.icon + '.svg');
+        });
+});
+
+$(function() {
+    $.get('http://localhost:3000/api/weather/forecast')
+        .fail(function(jqXHR, textStatus, errorThrown) {
+            logAjaxFail(jqXHR, textStatus, errorThrown);
+        })
+        .done(function(data, textStatus, jqXHR) {
+            logAjaxDone(data, textStatus, jqXHR);
+            for (var i = 0; i < 4; i++) {
+                $('.weather-forecast ul li[data-day="'+i+'"]').find('img').attr('src', '/images/weather/'+data.forecastday[i].icon+'.svg');
+                $('.weather-forecast ul li[data-day="'+i+'"]').find('span.hi').text(data.forecastday[i].high.celsius + 'º');
+                $('.weather-forecast ul li[data-day="'+i+'"]').find('span.lo').text(data.forecastday[i].low.celsius + 'º');
+                $('.weather-forecast ul li[data-day="'+i+'"]').find('p.cond-text').text(data.forecastday[i].conditions);
+                $('.weather-forecast ul li[data-day="'+i+'"]').find('div span:last-child').text(' ' + data.forecastday[i].avehumidity + ' % / ' + data.forecastday[i].qpf_allday.mm + ' mm');
+            }
         });
 });
 
