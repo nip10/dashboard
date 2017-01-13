@@ -1,122 +1,75 @@
-doctype html
-html
-    head
-        meta(charset='UTF-8')
-        title #{title}
-        link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css', integrity='sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u', crossorigin='anonymous')
-        link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Open+Sans')
-        link(rel='stylesheet', href='./css/styles.css', media='screen')
-    body
-        .container-fluid
-            .row
-                .col-md-3(name='left')
-                    .weather
-                        h2
-                            i.fa.fa-sun-o
-                            |  Weather
-                        hr
-                        .weather-current
-                            img(src='./images/dev/150x150.png')
-                            .p.weather-degree
-                            .p.weather-description
-                        .weather-forecast
-                            ul
-                                li(data-day='0')
-                                    p.day-title= weather.days[0]
-                                    p.temps
-                                        span.hi
-                                        span |
-                                        span.lo
-                                    img(src='./images/dev/50x50.png')
-                                    p.cond-text
-                                    div
-                                        span.pop
-                                        span
-                                li(data-day='1')
-                                    p.day-title= weather.days[1]
-                                    p.temps
-                                        span.hi
-                                        span |
-                                        span.lo
-                                    img(src='./images/dev/50x50.png')
-                                    p.cond-text
-                                    div
-                                        span.pop
-                                        span
-                                li(data-day='2')
-                                    p.day-title= weather.days[2]
-                                    p.temps
-                                        span.hi
-                                        span |
-                                        span.lo
-                                    img(src='./images/dev/50x50.png')
-                                    p.cond-text
-                                    div
-                                        span.pop
-                                        span
-                                li(data-day='3')
-                                    p.day-title= weather.days[3]
-                                    p.temps
-                                        span.hi
-                                        span |
-                                        span.lo
-                                    img(src='./images/dev/50x50.png')
-                                    p.cond-text
-                                    div
-                                        span.pop
-                                        span
-                        p.location
-                    .email
-                        h2
-                            i.fa.fa-envelope-o
-                            |  Email
-                        hr
-                .col-md-6(name='center')
-                    p.welcome Welcome
+extends layout.pug
 
-                .col-md-3(name='right')
-                    .tv
-                        h2
-                            i.fa.fa-television
-                            |  TV Shows
-                        hr
-                        ul.tv-list.tv-list-left
-                            li
-                                p= tv.days[0]
-                            li
-                                p= tv.days[1]
-                            li.today
-                                p= tv.days[2]
-                            li
-                                p= tv.days[3]
-                            li
-                                p= tv.days[4]
+block content
+    .container-fluid
+        .row
+            .col-md-3(name='left')
+                .weather
+                    h2
+                        i.fa.fa-sun-o
+                        |  Weather
+                    hr
+                    .weather-current
+                        img(src='./images/dev/150x150.png')
+                        .p.weather-degree
+                        .p.weather-description
+                    .weather-forecast
+                        ul
+                            each val in [0, 1, 2, 3]
+                                li(data-day='' + val)
+                                    p.day-title= weather.days[val]
+                                    p.temps
+                                        span.hi
+                                        span |
+                                        span.lo
+                                    img(src='./images/dev/50x50.png')
+                                    p.cond-text
+                                    div
+                                        span.pop
+                                        span
+                    p.location
 
-                        ul.tv-list.tv-list-right
-                            li
-                                p Big Bang Theory S10E07
-                                p Something S03E99
-                            li
-                                p Blacklist S04E05
-                                p Something S03E32
-                            li.today
-                                p Simpsons S25E01
-                            li
-                                p Chicago PD S04E03
-                            li
-                                p Homeland S06E01
-                    .movies
-                        h2
-                            i.fa.fa-film
-                            |  Movies
-                        hr
-                        .movies-container
-                            .movie
-                                .movie-overlay
-                            .movie
-                                .movie-overlay
+                .email
+                    h2
+                        i.fa.fa-envelope-o
+                        |  Email
+                    hr
+            .col-md-6(name='center')
+                p.welcome Welcome
 
-        script(src='https://code.jquery.com/jquery-2.2.4.min.js', integrity='sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=', crossorigin='anonymous')
-        script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js', integrity='sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa', crossorigin='anonymous')
-        script(src='https://use.fontawesome.com/e624a4110b.js')
-        script(src='./js/app.js')
+            .col-md-3(name='right')
+                .tv
+                    h2
+                        i.fa.fa-television
+                        |  TV Shows
+                    hr
+                    ul.tv-list.tv-list-left
+                        each val in [0, 1, 2, 3, 4]
+                            if val == 2
+                                li.today
+                                    p= tv.days[val]
+                            - else
+                                li
+                                    p= tv.days[val]
+
+                    ul.tv-list.tv-list-right
+                        each val in [0, 1, 2, 3, 4]
+                            if val == 2
+                                li.today
+                                    p Dummy data
+                                    p Big Bang Theory S10E0#{val+5}
+                            - else
+                                li
+                                    p Dummy data
+                                    p Big Bang Theory S10E0#{val+5}
+
+                .movies
+                    h2
+                        i.fa.fa-film
+                        |  Movies
+                    hr
+                    .movies-container
+                        .movie
+                            .movie-overlay
+                        .movie
+                            .movie-overlay
