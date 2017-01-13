@@ -1,82 +1,74 @@
-require('./config/config');
+require('dotenv').config();
 
 const path = require('path');
 const morgan = require('morgan');
 const pug = require('pug');
+const mysql = require('mysql');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const favicon = require('serve-favicon');
 const express = require('express');
 const app = express();
 const port = process.env.PORT;
 
-const {Movies} = require('./models/movies');
-const {Weather} = require('./models/weather');
-const {Days} = require('./models/days');
+var index = require('./routes/index');
+var movies = require('./routes/movies');
+var weather = require('./routes/weather');
+// var email = require('./routes/email');
+// var tvshows = require('./routes/tvshows');
 
-// Morgan for req logs
-app.use(morgan('dev'));
 
-// Set views path
+const connection = mysql.createConnection({
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASS,
+    database: process.env.DB_DATABASE
+});
+
+connection.connect(function(err) {
+  if (err) {
+    console.error('[MYSQL] Error connecting: ' + err.stack);
+    return process.exit(1); // process.exitCode = 1;
+  }
+  console.log('[MYSQL] Connected as id: ' + connection.threadId);
+});
+
+// view engine setup
 app.set('views', path.join(__dirname, 'views'));
-// Set public path
-app.use(express.static(path.join(__dirname, '../public')));
-// Set pug as view engine
 app.set('view engine', 'pug');
 
-// VIEWS
-// dashboard
-app.get('/', (req, res) => {
-    res.render('dashboard', {
-        title: 'Dashboard',
-        tv: {
-            days: Days.getList(5, -2, 'D MMM')
-        },
-        weather: {
-            days: Days.getList(4, 0, 'ddd, D MMM')
-        }
+app.use(morgan('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, '../public')));
+// uncomment after placing your favicon in /public
+//app.use(favicon(__dirname + '/public/favicon.ico'));
+
+app.use('/', index);
+app.use('/api/weather', weather);
+app.use('/api/movies', movies);
+// app.use('/api/tvshows', tvshows);
+// app.use('/api/email', email);
+
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
+});
+
+// error handler
+// no stacktraces leaked to user unless in development environment
+app.use(function(err, req, res, next) {
+    res.status(err.status || 500);
+    res.render('error', {
+        message: err.message,
+        error: (app.get('env') === 'development') ? err : {}
     });
 });
 
-// API
-// Movies
-app.get('/api/movies', (req, res) => {
-    Movies.getMovies().then((movies) => {
-        res.send(movies);
-    });
-});
-
-// WEATHER
-// Conditions
-app.get('/api/weather/conditions', (req, res) => {
-    Weather.getConditions().then((conditions) => {
-        res.status(200).send({
-            location: conditions.current_observation.display_location.full,
-            temperature: conditions.current_observation.temp_c,
-            humidity: conditions.current_observation.relative_humidity,
-            description: conditions.current_observation.weather,
-            icon: conditions.current_observation.icon,
-            localtime: conditions.current_observation.local_time_rfc822,
-            lastupdate: conditions.current_observation.observation_time_rfc822
-        });
-    });
-});
-
-// Forecast
-app.get('/api/weather/forecast', (req, res) => {
-    Weather.getForecast().then((forecast) => {
-        res.status(200).send(forecast);
-    });
-});
-
-// ERRORS
-
-app.use(function (err, req, res, next) {
-  console.log(err);
-  res.status(500).send('Something broke!');
-})
-
-app.use((req, res, next) => {
-    res.status(404).send('Not found!');
-});
-
+// APP
 app.listen(port, () => {
-    console.log(`Started on port ${port}`);
+    console.log(`[APP] Started on port ${port}`);
 });
