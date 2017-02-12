@@ -13,35 +13,37 @@ function createUser(req, res) {
     return knex('users')
       .insert({
         email: req.body.email,
-        password: hash
+        password: hash,
       })
       .returning('*');
   })
   .catch((err) => {
-    res.status(400).json({status: err.message});
+    res.status(400).json({ status: err.message });
   });
 }
 
 function loginRequired(req, res, next) {
-  if (!req.user) return res.status(401).json({status: 'Please log in'});
+  if (!req.user) return res.status(401).json({ status: 'Please log in' });
   return next();
 }
 
 function adminRequired(req, res, next) {
-  if (!req.user) res.status(401).json({status: 'Please log in'});
-  return knex('users').where({email: req.user.email}).first()
+  if (!req.user) res.status(401).json({ status: 'Please log in' });
+  return knex('users').where({ email: req.user.email }).first()
   .then((user) => {
-    if (!user.admin) res.status(401).json({status: 'You are not authorized'});
+    if (!user.admin) res.status(401).json({ status: 'You are not authorized' });
     return next();
   })
   .catch((err) => {
-    res.status(500).json({status: 'Something bad happened'});
+    res.status(500).json({ status: 'Something bad happened' });
   });
 }
 
 function loginRedirect(req, res, next) {
-  if (req.user) return res.status(401).json(
-    {status: 'You are already logged in'});
+  if (req.user) {
+    return res.status(401).json(
+    { status: 'You are already logged in' });
+  }
   return next();
 }
 
@@ -49,12 +51,11 @@ function handleErrors(req) {
   return new Promise((resolve, reject) => {
     if (req.body.email.length < 6) {
       reject({
-        message: 'Email must be longer than 6 characters'
+        message: 'Email must be longer than 6 characters',
       });
-    }
-    else if (req.body.password.length < 6) {
+    } else if (req.body.password.length < 6) {
       reject({
-        message: 'Password must be longer than 6 characters'
+        message: 'Password must be longer than 6 characters',
       });
     } else {
       resolve();
@@ -67,5 +68,5 @@ module.exports = {
   createUser,
   loginRequired,
   adminRequired,
-  loginRedirect
+  loginRedirect,
 };

@@ -6,8 +6,8 @@ const knex = require('../db/connection');
 const authHelpers = require('./_helpers');
 
 const options = {
-  usernameField : 'email',
-  passwordField : 'password'
+  usernameField: 'email',
+  passwordField: 'password',
 };
 
 init();
@@ -19,10 +19,10 @@ passport.use(new LocalStrategy(options, (email, password, done) => {
     if (!user) return done(null, false);
     if (!authHelpers.comparePass(password, user.password)) {
       return done(null, false);
-    } 
+    }
     return done(null, user);
   })
-  .catch((err) => { return done(err); });
+  .catch(err => done(err));
 }));
 
 module.exports = passport;
