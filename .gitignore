@@ -1,2 +1,5 @@
 node_modules/
 .env
+user_settings_example.json
+teste.js
+.vscode

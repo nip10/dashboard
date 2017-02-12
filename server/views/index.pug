@@ -1,0 +1,47 @@
+extends layout/base
+
+block content
+    .container-fluid
+        .row
+            .col-md-6.col-md-offset-3
+                .panel.panel-login
+                    .panel-heading
+                        .row
+                            .col-xs-6
+                                a#login-form-link.active(href='#') Login
+                            .col-xs-6
+                                a#register-form-link(href='#') Register
+                    hr
+                    .panel-body
+                        .row
+                            .col-md-12
+                                form#login-form(action='#', role='form')
+                                    .form-group
+                                        input.form-control(type='email', name='login-email', tabindex='1', placeholder='Email', value='')
+                                    .form-group
+                                        input.form-control(type='password', name='login-password', tabindex='2', placeholder='Password')
+                                    .form-group.text-center
+                                        input(type='checkbox', tabindex='3', name='remember')
+                                        label(for='remember')  Remember Me
+                                    .form-group
+                                        .row
+                                            .col-sm-6.col-sm-offset-3
+                                                input.form-control.btn.btn-login(type='submit', name='login-submit', tabindex='4', value='Log In')
+                                    .form-group
+                                        .row
+                                            .col-lg-12
+                                                .text-center
+                                                    a.forgot-password(href='#', tabindex='5') Forgot Password?
+                                form#register-form(action='#', role='form', style='display: none;')
+                                    .form-group
+                                        input#email.form-control(type='email', name='register-email', tabindex='1', placeholder='Email Address', value='')
+                                    .form-group
+                                        input#password.form-control(type='password', name='register-password', tabindex='2', placeholder='Password')
+                                    .form-group
+                                        input#confirm-password.form-control(type='password', name='confirm-password', tabindex='2', placeholder='Confirm Password')
+                                    .form-group
+                                        .row
+                                            .col-sm-6.col-sm-offset-3
+                                                input#register-submit.form-control.btn.btn-register(type='submit', name='register-submit', tabindex='4', value='Register Now')
+block scripts
+    script(src='./js/app-index.js')
