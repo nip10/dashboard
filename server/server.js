@@ -1,74 +1,51 @@
+'use strict';
+
 require('dotenv').config();
 
-const path = require('path');
-const morgan = require('morgan');
-const pug = require('pug');
-const mysql = require('mysql');
-const cookieParser = require('cookie-parser');
-const bodyParser = require('body-parser');
-const favicon = require('serve-favicon');
-const express = require('express');
-const app = express();
-const port = process.env.PORT;
+const app = require('./app');
+const http = require('http');
 
-var index = require('./routes/index');
-var movies = require('./routes/movies');
-var weather = require('./routes/weather');
-// var email = require('./routes/email');
-// var tvshows = require('./routes/tvshows');
+const port = normalizePort(process.env.PORT || '3000');
+app.set('port', port);
 
+const server = http.createServer(app);
 
-const connection = mysql.createConnection({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASS,
-    database: process.env.DB_DATABASE
-});
+server.listen(port);
+server.on('error', onError);
+server.on('listening', onListening);
 
-connection.connect(function(err) {
-  if (err) {
-    console.error('[MYSQL] Error connecting: ' + err.stack);
-    return process.exit(1); // process.exitCode = 1;
+function normalizePort(val) {
+  const port = parseInt(val, 10);
+  if (isNaN(port)) {
+    return val;
   }
-  console.log('[MYSQL] Connected as id: ' + connection.threadId);
-});
+  if (port >= 0) {
+    return port;
+  }
+  return false;
+}
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
+function onError(error) {
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
+  const bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port;
+  switch (error.code) {
+    case 'EACCES':
+      console.error(bind + ' requires elevated privileges');
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(bind + ' is already in use');
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
 
-app.use(morgan('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, '../public')));
-// uncomment after placing your favicon in /public
-//app.use(favicon(__dirname + '/public/favicon.ico'));
-
-app.use('/', index);
-app.use('/api/weather', weather);
-app.use('/api/movies', movies);
-// app.use('/api/tvshows', tvshows);
-// app.use('/api/email', email);
-
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-    var err = new Error('Not Found');
-    err.status = 404;
-    next(err);
-});
-
-// error handler
-// no stacktraces leaked to user unless in development environment
-app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-        message: err.message,
-        error: (app.get('env') === 'development') ? err : {}
-    });
-});
-
-// APP
-app.listen(port, () => {
-    console.log(`[APP] Started on port ${port}`);
-});
+function onListening() {
+  const addr = server.address();
+  const bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
+  console.log('Listening on ' + bind);
+}

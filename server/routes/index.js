@@ -3,6 +3,14 @@ var express = require('express');
 var router  = express.Router();
 
 router.get('/', (req, res) => {
+    // TODO: Check if user is logged-in, if yes redirect to /dashboard, else redirect to /login
+    res.render('index', {
+        title: 'index'
+    });
+});
+
+router.get('/dashboard', (req, res) => {
+    // TODO: Check if user is logged-in, if not redirect to /login
     res.render('dashboard', {
         title: 'Dashboard',
         tv: {

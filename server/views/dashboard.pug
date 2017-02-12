@@ -1,4 +1,4 @@
-extends layout.pug
+extends layout/base
 
 block content
     .container-fluid
@@ -73,3 +73,5 @@ block content
                             .movie-overlay
                         .movie
                             .movie-overlay
+block scripts
+    script(src='./js/app.js')
