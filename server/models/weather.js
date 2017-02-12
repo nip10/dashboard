@@ -10,37 +10,33 @@ const locationCity = 'Porto';
 
 const Weather = {};
 
-const conditionsUrl = 'http://api.wunderground.com/api/' + weatherApiKey + '/conditions/q/' + stationId + '.json';
-const forecastUrl = 'http://api.wunderground.com/api/' + weatherApiKey + '/forecast/q/' + locationCountry + '/' + locationCity + '.json';
+const conditionsUrl = `http://api.wunderground.com/api/${weatherApiKey}/conditions/q/${stationId}.json`;
+const forecastUrl = `http://api.wunderground.com/api/${weatherApiKey}/forecast/q/${locationCountry}/${locationCity}.json`;
 
-Weather.getConditions = () => {
-    return new Promise ((resolve, reject) => {
-        request({
-            url: conditionsUrl,
-        }, function (error, response, body) {
-            if (response.statusCode === 200 && !error) {
-                let bodyJSON = JSON.parse(body);
-                resolve(bodyJSON);
-            } else {
-                reject('Erro');
-            }
-        });
-    });
-}
+Weather.getConditions = () => new Promise((resolve, reject) => {
+  request({
+    url: conditionsUrl,
+  }, (error, response, body) => {
+    if (response.statusCode === 200 && !error) {
+      const bodyJSON = JSON.parse(body);
+      resolve(bodyJSON);
+    } else {
+      reject('Erro');
+    }
+  });
+});
 
-Weather.getForecast = () => {
-    return new Promise ((resolve, reject) => {
-        request({
-            url: forecastUrl,
-        }, function (error, response, body) {
-            if (response.statusCode === 200 && !error) {
-                let bodyJSON = JSON.parse(body);
-                resolve(bodyJSON.forecast.simpleforecast);
-            } else {
-                reject('Erro');
-            }
-        });
-    });
-}
+Weather.getForecast = () => new Promise((resolve, reject) => {
+  request({
+    url: forecastUrl,
+  }, (error, response, body) => {
+    if (response.statusCode === 200 && !error) {
+      const bodyJSON = JSON.parse(body);
+      resolve(bodyJSON.forecast.simpleforecast);
+    } else {
+      reject('Erro');
+    }
+  });
+});
 
-module.exports = {Weather};
+module.exports = { Weather };
