@@ -1,5 +1,6 @@
 const { Weather } = require('../models/weather');
 const express = require('express');
+
 const router = express.Router();
 
 // Conditions
