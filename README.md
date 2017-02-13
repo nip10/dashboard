@@ -1,5 +1,4 @@
 # Dashboard
----
 
 **Note:** This project is being rewritten (and improved) from the original php version. It's in a very early stage.
 
@@ -12,9 +11,8 @@ Some of the features:
 * To-do lists
 * Offline use: ability to use cached data for offline use (tvshows list, to-do's list, ...)
 
-
-## Current Status
 ---
+## Current Status
 
 What is working/usable:
 - [X] User authentication (sign-up, login)
@@ -34,8 +32,8 @@ TODOs
 - [ ] gulp/webpack (and Babel)
 - [ ] PM2
 
-## Stack
 ---
+## Stack
 
 * Nodejs (ES6)
 
@@ -57,8 +55,8 @@ TODOs
 * Linter:
 -- ESLint (airbnb)
 
-## How-to
 ---
+## How-to
 
 **Note:**  This is in early stages.
 EDIT: Back-end auth was refactored, so the front-end needs some tweaks.
