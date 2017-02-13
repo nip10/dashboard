@@ -1,7 +1,3 @@
-var d = new Date();
-var timeH = d.getHours();
-// var newDate = new Date(Date.now() + 24*60*60*1000);
-
 // LOGIN FORM
 $('#login-form-link').click(function(e) {
     e.preventDefault();
