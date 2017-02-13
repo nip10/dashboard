@@ -1,18 +1,18 @@
 {
   "name": "dashboard",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Dashboard webapp",
+  "main": "server/server.js",
   "scripts": {
     "start": "node server/server.js",
     "watch": "nodemon server/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint ."
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/nip10/dashboard.git"
   },
-  "author": "",
+  "author": "Diogo Cardoso",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/nip10/dashboard/issues"
