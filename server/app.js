@@ -5,8 +5,9 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const passport = require('passport');
-const favicon = require('serve-favicon');
+// const favicon = require('serve-favicon');
 const express = require('express');
+
 const app = express();
 
 const index = require('./routes/index');
