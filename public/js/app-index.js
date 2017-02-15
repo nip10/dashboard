@@ -2,21 +2,20 @@
 $('#login-form-link').click(function(e) {
     e.preventDefault();
     $("#login-form").delay(100).fadeIn(100);
-    $("#register-form").fadeOut(100);
-    $('#register-form-link').removeClass('active');
+    $("#signup-form").fadeOut(100);
+    $('#signup-form-link').removeClass('active');
     $(this).addClass('active');
 });
 
-$('#register-form-link').click(function(e) {
+$('#signup-form-link').click(function(e) {
     e.preventDefault();
-    $("#register-form").delay(100).fadeIn(100);
+    $("#signup-form").delay(100).fadeIn(100);
     $("#login-form").fadeOut(100);
     $('#login-form-link').removeClass('active');
     $(this).addClass('active');
 });
 
-// LOGIN REQ
-
+// LOGIN AJAX
 $('#login-form').submit(function(e) {
     e.preventDefault();
 
@@ -29,20 +28,19 @@ $('#login-form').submit(function(e) {
         })
         .done(function(data, textStatus, jqXHR) {
             logAjaxDone(data, textStatus, jqXHR);
+            if (data.status === 'success') window.location.href = '/dashboard'
         });
 });
 
 
-// SIGN-UP REQ
-$('#register-form').submit(function(e) {
+// SIGN-UP AJAX
+$('#signup-form').submit(function(e) {
     e.preventDefault();
 
-    var email = $( "input[name='register-email']" ).val();
-    console.log('Email: ' + email);
-    var password = $( "input[name='register-password']" ).val();
-    console.log('Password: ' + password);
+    var email = $( "input[name='signup-email']" ).val();
+    var password = $( "input[name='signup-password']" ).val();
 
-    $.post('http://localhost:3000/api/auth/register', { email: email, password: password })
+    $.post('http://localhost:3000/api/auth/signup', { email: email, password: password })
         .fail(function(jqXHR, textStatus, errorThrown) {
             logAjaxFail(jqXHR, textStatus, errorThrown);
         })
@@ -52,7 +50,7 @@ $('#register-form').submit(function(e) {
 });
 
 
-// Utils
+// UTILS
 // Logs failed ajax requests
 var logAjaxFail = function(jqXHR, textStatus, errorThrown) {
     console.log('jqXHR:');

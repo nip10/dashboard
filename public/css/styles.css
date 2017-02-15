@@ -1,5 +1,5 @@
 html {
-    background: #5f2c82;                                             /* fallback for old browsers */
+    background: #5f2c82;                                               /* fallback for old browsers */
     background: -webkit-linear-gradient(to left, #de6161 , #2657eb); /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to left, #de6161 , #2657eb);         /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
@@ -28,6 +28,11 @@ a {
 
 img {
     border: none;
+}
+
+.col-centered {
+    float: none;
+    margin: 0 auto;
 }
 
 /*WEATHER*/
@@ -260,6 +265,7 @@ img {
 /*LOGIN-FORM*/
 .panel-login {
     margin-top: 300px;
+    height: 500px;
 	border-color: #ccc;
 	-webkit-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
 	-moz-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
@@ -332,7 +338,7 @@ img {
 	color: #666;
 }
 
-.btn-register {
+.btn-signup {
 	background-color: #1CB94E;
 	outline: none;
 	color: #fff;
@@ -344,8 +350,8 @@ img {
 	border-color: #1CB94A;
 }
 
-.btn-register:hover,
-.btn-register:focus {
+.btn-signup:hover,
+.btn-signup:focus {
 	color: #fff;
 	background-color: #1CA347;
 	border-color: #1CA347;

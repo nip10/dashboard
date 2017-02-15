@@ -2,3 +2,5 @@ node_modules/
 ideas/
 .vscode/
 .env
+*.todo
+server/store
