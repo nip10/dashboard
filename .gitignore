@@ -4,3 +4,4 @@ ideas/
 .env
 *.todo
 server/store
+server/models/teste.js

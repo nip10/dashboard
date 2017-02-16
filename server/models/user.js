@@ -4,8 +4,6 @@ const path = require('path');
 
 const User = {
 
-  userSettingsPath: path.join(__dirname, '../store/usersettings/'),
-
   userSettingsTemplate: {
     isNew: true,
     createdAt: moment().format('DD-MM-YYYY HH:mm:ss'),
@@ -27,11 +25,24 @@ const User = {
     },
   },
 
+  userSettingsPath(user) {
+    return path.join(__dirname, '../store/usersettings/', `${user.id.toString()}.json`);
+  },
+
   createUserSettings(user) {
     return new Promise((resolve, reject) => {
-      fs.writeFile(`${this.userSettingsPath}${user.id}.json`, JSON.stringify(this.userSettingsTemplate), (err) => {
+      fs.writeFile(this.userSettingsPath(user), JSON.stringify(this.userSettingsTemplate), (err) => {
         if (err) reject(err);
         resolve();
+      });
+    });
+  },
+
+  getUserSettings(user) {
+    return new Promise((resolve, reject) => {
+      fs.readFile(this.userSettingsPath(user), (err, data) => {
+        if (err) reject(err);
+        resolve(JSON.parse(data));
       });
     });
   },
