@@ -20,13 +20,16 @@ const User = {
       onlyUnread: true,
     },
     weather: {
-      location: null,
+      location: {
+        country: null,
+        city: null,
+      },
       unit: null,
     },
   },
 
-  userSettingsPath(user) {
-    return path.join(__dirname, '../store/usersettings/', `${user.id.toString()}.json`);
+  userSettingsPath(userID) {
+    return path.join(__dirname, '../store/usersettings/', `${userID.toString()}.json`);
   },
 
   createUserSettings(user) {
@@ -38,9 +41,9 @@ const User = {
     });
   },
 
-  getUserSettings(user) {
+  getUserSettings(userID) {
     return new Promise((resolve, reject) => {
-      fs.readFile(this.userSettingsPath(user), (err, data) => {
+      fs.readFile(this.userSettingsPath(userID), (err, data) => {
         if (err) reject(err);
         resolve(JSON.parse(data));
       });

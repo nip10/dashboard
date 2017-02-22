@@ -3,6 +3,7 @@ const knex = require('../db/connection');
 
 module.exports = () => {
   passport.serializeUser((user, done) => {
+    console.log(`>>>>>>>>>>>>>>>>>>>>> [NEW USER] User ${user.id} connected`);
     done(null, user.id);
   });
 

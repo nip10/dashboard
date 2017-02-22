@@ -53,15 +53,11 @@ block content
                                     p= tv.days[val]
 
                     ul.tv-list.tv-list-right
-                        each val in [0, 1, 2, 3, 4]
-                            if val == 2
-                                li.today
-                                    p Dummy data
-                                    p Big Bang Theory S10E0#{val+5}
-                            - else
-                                li
-                                    p Dummy data
-                                    p Big Bang Theory S10E0#{val+5}
+                        li(data-tv-day=1)
+                        li(data-tv-day=2)
+                        li(data-tv-day=3).today
+                        li(data-tv-day=4)
+                        li(data-tv-day=5)
 
                 .movies
                     h2

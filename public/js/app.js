@@ -1,6 +1,5 @@
 var d = new Date();
 var timeH = d.getHours();
-// var newDate = new Date(Date.now() + 24*60*60*1000);
 
 $(function() {
     $.get('http://localhost:3000/api/movies')
@@ -48,41 +47,21 @@ $(function() {
         });
 });
 
-// LOGIN FORM
 $(function() {
-
-    $('#login-form-link').click(function(e) {
-        e.preventDefault();
-		$("#login-form").delay(100).fadeIn(100);
- 		$("#register-form").fadeOut(100);
-		$('#register-form-link').removeClass('active');
-		$(this).addClass('active');
-	});
-
-	$('#register-form-link').click(function(e) {
-        e.preventDefault();
-		$("#register-form").delay(100).fadeIn(100);
- 		$("#login-form").fadeOut(100);
-		$('#login-form-link').removeClass('active');
-		$(this).addClass('active');
-	});
-
-});
-
-// LOGIN REQ
-$(function() {
-    $('#login-form').submit(function(e) {
-        e.preventDefault();
-        // ajax post req
-    });
-});
-
-// SIGN-UP REQ
-$(function() {
-    $('#register-form').submit(function(e) {
-        e.preventDefault();
-        // ajax post req
-    });
+    $.get('http://localhost:3000/api/tvshows')
+        .fail(function(jqXHR, textStatus, errorThrown) {
+            logAjaxFail(jqXHR, textStatus, errorThrown);
+        })
+        .done(function(data, textStatus, jqXHR) {
+            logAjaxDone(data, textStatus, jqXHR);
+            for (var i = 1; i < 6 + 1; i++) {
+                if (data[`day${i}`] && data[`day${i}`].length != 0) {
+                    data[`day${i}`].forEach(function(element) {
+                        $('.tv ul.tv-list-right li[data-tv-day="'+i+'"]').append(`<p>${element}</p>`);
+                    });
+                }
+            }
+        });
 });
 
 // Utils

@@ -1,13 +1,13 @@
 const moment = require('moment');
 
-const Days = {};
-
-Days.getList = (n, startOffset, format) => {
-  const daysList = [];
-  for (let i = startOffset; i < (n + startOffset); i++) {
-    daysList.push(moment().add(i, 'd').format(format));
-  }
-  return daysList;
+const days = {
+  getListOfFive(n, startOffset, format) {
+    const daysList = [];
+    for (let i = startOffset; i < (n + startOffset); i++) {
+      daysList.push(moment().add(i, 'd').format(format));
+    }
+    return daysList;
+  },
 };
 
-module.exports = { Days };
+module.exports = days;
