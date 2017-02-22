@@ -4,8 +4,8 @@
   "description": "Dashboard webapp",
   "main": "server/server.js",
   "scripts": {
-    "start": "node server/server.js",
-    "watch": "nodemon server/server.js",
+    "run": "node server/server.js",
+    "start": "nodemon server/server.js",
     "lint": "eslint ."
   },
   "repository": {

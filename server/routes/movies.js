@@ -1,11 +1,11 @@
-const { Movies } = require('../models/movies');
+const movies = require('../models/movies');
 const express = require('express');
 
 const router = express.Router();
 
 // Movies
 router.get('/', (req, res) => {
-  Movies.getMovies().then((movies) => {
+  movies.getMovies().then((movies) => {
     res.send(movies);
   });
 });
