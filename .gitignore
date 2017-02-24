@@ -5,3 +5,4 @@ ideas/
 *.todo
 server/store
 server/models/teste.js
+server/db/knexfile.js
