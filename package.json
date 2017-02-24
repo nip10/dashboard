@@ -6,6 +6,7 @@
   "scripts": {
     "run": "node server/server.js",
     "start": "nodemon server/server.js",
+    "start:remote": "set NODE_ENV=production&&nodemon server/server.js",
     "lint": "eslint ."
   },
   "repository": {

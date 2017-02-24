@@ -39,7 +39,7 @@ const weather = {
   },
 
   getConditions(userID) {
-    return this.api.getConditionsUrl(userID)
+    return this.api.getConditionsUrl(userID)  // move this 2 lines down, and return new promise here (see tvshows.js example)
       .then((url) => {
         return new Promise((resolve, reject) => {
           request({
