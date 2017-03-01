@@ -34,10 +34,12 @@ const User = {
 
   createUserSettings(user) {
     return new Promise((resolve, reject) => {
-      fs.writeFile(this.userSettingsPath(user), JSON.stringify(this.userSettingsTemplate), (err) => {
-        if (err) reject(err);
-        resolve();
-      });
+      fs.writeFile(this.userSettingsPath(user),
+        JSON.stringify(this.userSettingsTemplate),
+        (err) => {
+          if (err) reject(err);
+          resolve();
+        });
     });
   },
 

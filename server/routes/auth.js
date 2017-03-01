@@ -5,38 +5,35 @@ const authHelpers = require('../auth/_helpers');
 const User = require('../models/user');
 const chalk = require('chalk');
 
+const debug = console.log();
+
 const router = express.Router();
 
 router.post('/login', (req, res, next) => {
   const email = req.body.email;
   if (!validator.isEmail(email) || validator.isEmpty(email)) {
-    return handleResponse(res, 500, 'invalid email');
+    return res.status(500).json({ status: 'Invalid Email' });
   }
   const password = req.body.password;
   if (validator.isEmpty(password)) {
-    return handleResponse(res, 500, 'invalid password');
+    return res.status(500).json({ status: 'Invalid Password' });
   }
 
-  req.body.email = validator.normalizeEmail(email); /* eslint no-param-reassign: ["error", { "props": false }] */
+  /* eslint no-param-reassign: ["error", { "props": false }] */
+  req.body.email = validator.normalizeEmail(email);
 
-  passport.authenticate('local', (err, user) => {
-    if (err) { handleResponse(res, 500, 'error'); }
-    if (!user) { handleResponse(res, 404, 'User not found'); }
+  return passport.authenticate('local', (err, user) => {
+    if (err) { res.status(500).json({ status: err }); }
+    if (!user) { res.status(404).json({ status: 'User not found' }); }
     if (user) {
-      console.log(chalk.blue('User %s connected'), user.id);
+      debug(chalk.blue('User %s connected'), user.id);
       User.getUserSettingsFromFile(user.id)
-        .then((userSettings) => {
-          res.cookie('userSettings', userSettings);
-        })
-        .then(() => {
-          req.logIn(user, (err) => {
-            if (err) { handleResponse(res, 500, 'error'); }
-            handleResponse(res, 200, 'success');
-          });
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+        .then(userSettings => res.cookie('userSettings', userSettings))
+        .then(() => req.logIn(user, (error) => {
+          if (error) { res.status(500).json({ status: error }); }
+          res.status(200).json({ status: 'success' });
+        }))
+        .catch(e => res.status(500).json({ status: e }));
     }
   })(req, res, next);
 });
@@ -50,11 +47,7 @@ router.post('/signup', (req, res, next) =>
       })(req, res, next);
     }))
     .then(user => User.createUserSettings(user))
-    .then(() => handleResponse(res, 200, 'success'))
-    .catch(err => handleResponse(res, 500, 'error')));
-
-function handleResponse(res, code, statusMsg) {
-  res.status(code).json({ status: statusMsg });
-}
+    .then(() => res.status(200).json({ status: 'success' }))
+    .catch(err => res.status(500).json({ status: err })));
 
 module.exports = router;
