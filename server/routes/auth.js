@@ -5,8 +5,6 @@ const authHelpers = require('../auth/_helpers');
 const User = require('../models/user');
 const chalk = require('chalk');
 
-const debug = console.log();
-
 const router = express.Router();
 
 router.post('/login', (req, res, next) => {
@@ -19,21 +17,22 @@ router.post('/login', (req, res, next) => {
     return res.status(500).json({ status: 'Invalid Password' });
   }
 
-  /* eslint no-param-reassign: ["error", { "props": false }] */
-  req.body.email = validator.normalizeEmail(email);
+  req.body.email = validator.normalizeEmail(email); /* eslint no-param-reassign: ["error", { "props": false }] */
 
-  return passport.authenticate('local', (err, user) => {
-    if (err) { res.status(500).json({ status: err }); }
-    if (!user) { res.status(404).json({ status: 'User not found' }); }
+  passport.authenticate('local', (err, user) => {
+    if (err) { return res.status(500).json({ status: 'Error in passport authenticate' }); }
+    if (!user) { return res.status(404).json({ status: 'User not found' }); }
     if (user) {
-      debug(chalk.blue('User %s connected'), user.id);
+      console.log(chalk.blue('User %s connected'), user.id);
       User.getUserSettingsFromFile(user.id)
         .then(userSettings => res.cookie('userSettings', userSettings))
-        .then(() => req.logIn(user, (error) => {
-          if (error) { res.status(500).json({ status: error }); }
-          res.status(200).json({ status: 'success' });
-        }))
-        .catch(e => res.status(500).json({ status: e }));
+        .then(() => {
+          req.logIn(user, (err) => {
+            if (err) { return res.status(500).json({ status: 'Error in passport logIn' }); }
+            return res.status(200).json({ status: 'success' });
+          });
+        })
+        .catch(err => res.status(500).json({ status: err }));
     }
   })(req, res, next);
 });

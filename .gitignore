@@ -4,3 +4,4 @@ node_modules/
 *.todo
 server/store
 server/db/knexfile.js
+main.js
