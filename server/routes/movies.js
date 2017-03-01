@@ -7,6 +7,9 @@ router.get('/', (req, res) => {
   Movies.getMovies()
     .then((movies) => {
       res.send(movies);
+    })
+    .catch((err) => {
+      res.status(500).json({ status: err });
     });
 });
 

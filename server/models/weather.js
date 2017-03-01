@@ -12,10 +12,12 @@ const Weather = {
       }, (error, response, body) => {
         if (response.statusCode === 200 && !error) {
           const bodyJSON = JSON.parse(body);
-          resolve(bodyJSON);
-        } else {
-          reject(error);
+          if (!bodyJSON.current_observation) {
+            return reject('Invalid response from the WU API (conditions)');
+          }
+          return resolve(bodyJSON);
         }
+        return reject(error);
       });
     });
   },
@@ -28,10 +30,12 @@ const Weather = {
       }, (error, response, body) => {
         if (response.statusCode === 200 && !error) {
           const bodyJSON = JSON.parse(body);
-          resolve(bodyJSON.forecast.simpleforecast);
-        } else {
-          reject(error);
+          if (!bodyJSON.forecast) {
+            return reject('Invalid response from the WU API (forecast)');
+          }
+          return resolve(bodyJSON.forecast.simpleforecast);
         }
+        return reject(error);
       });
     });
   },
