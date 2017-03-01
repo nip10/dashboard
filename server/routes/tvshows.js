@@ -1,10 +1,10 @@
-const tvShows = require('../models/tvshows');
+const TvShows = require('../models/tvshows');
 const express = require('express');
 
 const router = express.Router();
 
 router.get('/', (req, res) => {
-  tvShows.getTvShows(req.user.id)
+  TvShows.getTvShows(req.user.id, req.cookies.userSettings)
     .then((tv) => {
       res.status(200).send(tv);
     });
