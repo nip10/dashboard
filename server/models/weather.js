@@ -14,7 +14,7 @@ const Weather = {
           const bodyJSON = JSON.parse(body);
           resolve(bodyJSON);
         } else {
-          reject('Erro');
+          reject(error);
         }
       });
     });
@@ -30,7 +30,7 @@ const Weather = {
           const bodyJSON = JSON.parse(body);
           resolve(bodyJSON.forecast.simpleforecast);
         } else {
-          reject('Erro');
+          reject(error);
         }
       });
     });
