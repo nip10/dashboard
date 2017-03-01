@@ -6,7 +6,7 @@ const startInterval = moment().subtract(28, 'days').format('YYYY-MM-DD'); // cor
 const endInterval = moment().add(2, 'days').format('YYYY-MM-DD');
 
 const TvShows = {
-  getTvShows(userID, userSettings) {
+  getTvShows(userSettings) {
     return new Promise((resolve, reject) => {
       knex('tvshows')
         .whereIn('show', userSettings.tvshows)
