@@ -25,7 +25,6 @@ const TvShows = {
           resolve(tvShowsArray);
         })
         .catch((err) => {
-          console.log(err);
           reject(err);
         });
     });
