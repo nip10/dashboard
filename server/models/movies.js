@@ -15,7 +15,7 @@ const Movies = {
           imgArray.push(bodyJSON.data.movies[1].medium_cover_image);
           resolve(imgArray);
         } else {
-          reject('Erro');
+          reject('Error fetching Movies');
         }
       });
     });
