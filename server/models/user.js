@@ -41,7 +41,7 @@ const User = {
     });
   },
 
-  getUserSettings(userID) {
+  getUserSettingsFromFile(userID) {
     return new Promise((resolve, reject) => {
       fs.readFile(this.userSettingsPath(userID), (err, data) => {
         if (err) reject(err);
@@ -49,6 +49,7 @@ const User = {
       });
     });
   },
+
 };
 
 module.exports = User;

@@ -1,21 +1,26 @@
-const weather = require('../models/weather');
+const Weather = require('../models/weather');
 const express = require('express');
 
 const router = express.Router();
 
 // Conditions
 router.get('/conditions', (req, res) => {
-  weather.getConditions(req.user.id).then((conditions) => {
-    res.status(200).send({
-      location: conditions.current_observation.display_location.full,
-      temperature: conditions.current_observation.temp_c,
-      humidity: conditions.current_observation.relative_humidity,
-      description: conditions.current_observation.weather,
-      icon: conditions.current_observation.icon,
-      localtime: conditions.current_observation.local_time_rfc822,
-      lastupdate: conditions.current_observation.observation_time_rfc822,
-    });
-  })
+  const locationCountry = req.cookies.userSettings.weather.location.country;
+  const locationCity = req.cookies.userSettings.weather.location.city;
+
+  Weather.getConditions(req.user.id, locationCountry, locationCity)
+    .then((conditions) => {
+      const baseObj = conditions.current_observation;
+      res.status(200).send({
+        location: baseObj.display_location.full,
+        temperature: baseObj.temp_c,
+        humidity: baseObj.relative_humidity,
+        description: baseObj.weather,
+        icon: baseObj.icon,
+        localtime: baseObj.local_time_rfc822,
+        lastupdate: baseObj.observation_time_rfc822,
+      });
+    })
     .catch((err) => {
       console.log(err);
     });
@@ -23,9 +28,13 @@ router.get('/conditions', (req, res) => {
 
 // Forecast
 router.get('/forecast', (req, res) => {
-  weather.getForecast(req.user.id).then((forecast) => {
-    res.status(200).send(forecast);
-  })
+  const locationCountry = req.cookies.userSettings.weather.location.country;
+  const locationCity = req.cookies.userSettings.weather.location.city;
+
+  Weather.getForecast(req.user.id, locationCountry, locationCity)
+    .then((forecast) => {
+      res.status(200).send(forecast);
+    })
     .catch((err) => {
       console.log(err);
     });

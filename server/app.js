@@ -29,7 +29,7 @@ app.use(session({
   saveUninitialized: true, // saved new sessions
   resave: false, // do not automatically write to the session store
   // store: sessionStore,
-  cookie: { httpOnly: true, maxAge: 2419200000 }, // configure when sessions expires
+  cookie: { httpOnly: false, maxAge: 2419200000 }, // configure when sessions expires, httpOnly should be true in production
 }));
 app.use(passport.initialize());
 app.use(passport.session());

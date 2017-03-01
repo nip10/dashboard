@@ -1,6 +1,6 @@
 const request = require('request');
 
-const movies = {
+const Movies = {
   apiUrl: 'https://yts.ag/api/v2/list_movies.json?sort=date_added&limit=2',
 
   getMovies() {
@@ -22,4 +22,4 @@ const movies = {
   },
 };
 
-module.exports = movies;
+module.exports = Movies;
