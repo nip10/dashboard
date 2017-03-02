@@ -8,9 +8,9 @@ router.get('/conditions', (req, res) => {
   const locationCity = req.cookies.userSettings.weather.location.city;
 
   if (!locationCountry || locationCountry.length === 0 || locationCountry === 'null') {
-    res.status(200).send({ error: 'You need to set a County to get the Weather.' });
+    res.status(400).send({ error: 'You need to set a County to get the Weather.' });
   } else if (!locationCity || locationCity.length === 0 || locationCity === 'null') {
-    res.status(200).send({ error: 'You need to set a City to get the Weather.' });
+    res.status(400).send({ error: 'You need to set a City to get the Weather.' });
   } else {
     Weather.getConditions(locationCountry, locationCity)
       .then((conditions) => {
@@ -36,9 +36,9 @@ router.get('/forecast', (req, res) => {
   const locationCity = req.cookies.userSettings.weather.location.city;
 
   if (!locationCountry || locationCountry.length === 0 || locationCountry === 'null') {
-    res.status(200).send({ error: 'You need to set a County to get the Weather.' });
+    res.status(400).send({ error: 'You need to set a County to get the Weather.' });
   } else if (!locationCity || locationCity.length === 0 || locationCity === 'null') {
-    res.status(200).send({ error: 'You need to set a City to get the Weather.' });
+    res.status(400).send({ error: 'You need to set a City to get the Weather.' });
   } else {
     Weather.getForecast(locationCountry, locationCity)
       .then((forecast) => {
