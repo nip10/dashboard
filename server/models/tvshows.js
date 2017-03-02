@@ -2,14 +2,14 @@ require('dotenv').config();
 const knex = require('../db/connection');
 const moment = require('moment');
 
-const startInterval = moment().subtract(28, 'days').format('YYYY-MM-DD'); // correct value is 2
+const startInterval = moment().subtract(30, 'days').format('YYYY-MM-DD'); // correct value is 2
 const endInterval = moment().add(2, 'days').format('YYYY-MM-DD');
 
 const TvShows = {
-  getTvShows(userSettings) {
+  getTvShows(tvshows) {
     return new Promise((resolve, reject) => {
       knex('tvshows')
-        .whereIn('show', userSettings.tvshows)
+        .whereIn('show', tvshows)
         .whereBetween('airdate', [startInterval, endInterval])
         .orderBy('airdate', 'asc')
         .then((result) => {

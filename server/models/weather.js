@@ -12,10 +12,19 @@ const Weather = {
       }, (error, response, body) => {
         if (response.statusCode === 200 && !error) {
           const bodyJSON = JSON.parse(body);
+          const baseObj = bodyJSON.current_observation;
           if (!bodyJSON.current_observation) {
             return reject('Invalid response from the WU API (conditions)');
           }
-          return resolve(bodyJSON);
+          return resolve({
+            location: baseObj.display_location.full,
+            temperature: baseObj.temp_c,
+            humidity: baseObj.relative_humidity,
+            description: baseObj.weather,
+            icon: baseObj.icon,
+            localtime: baseObj.local_time_rfc822,
+            lastupdate: baseObj.observation_time_rfc822,
+          });
         }
         return reject(error);
       });

@@ -1,0 +1,23 @@
+{
+  "isNew": true,
+  "createdAt": "14-02-2017 23:57:22",
+  "lastUpdate": null,
+  "tvshows": ["blacklist", "american dad", "games", "simpsons", "suits"],
+  "movies": {
+    "gender": [],
+    "rating": null,
+    "year": null
+  },
+  "email": {
+    "emailAddress": null,
+    "server": null,
+    "onlyUnread": true
+  },
+  "weather": {
+    "location": {
+      "country": "Portugal",
+      "city": "Porto"
+    },
+    "unit": null
+  }
+}

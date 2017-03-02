@@ -6,7 +6,7 @@ const router = express.Router();
 router.get('/', (req, res) => {
   Movies.getMovies()
     .then((movies) => {
-      res.send(movies);
+      res.status(200).send(movies);
     })
     .catch((err) => {
       res.status(500).json({ status: err });
