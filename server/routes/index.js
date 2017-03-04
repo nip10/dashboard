@@ -28,7 +28,6 @@ router.get('/dashboard', (req, res) => {
     Weather.getForecast(userSettings.weather.location.country, userSettings.weather.location.city),
   ])
   .then(([tvList, moviesList, weatherConditions, weatherForecast]) => {
-    console.log(util.inspect(tvList, false, null));
     res.render('dashboard', {
       title: 'Dashboard',
       tv: {

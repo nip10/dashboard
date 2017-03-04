@@ -1,3 +1,3 @@
 {
-  "ignore": ["store/*", "ideas/*"]
+  "ignore": ["store/*", "playground/*"]
 }

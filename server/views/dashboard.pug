@@ -2,12 +2,20 @@ extends layout/base
 
 block content
     .container-fluid
+        .row.header
+            .col-md-3(name='left')
+                p Blabla
+            .col-md-6(name='center')
+                p Blabla
+            .col-md-3(name='right')
+                p Welcome, #{username} !
         .row
             .col-md-3(name='left')
                 .weather
                         h2
                             i.fa.fa-sun-o
                             |  Weather
+                            i.fa.fa-cog.pull-right
                         hr
                         if weather.conditions
                             .weather-current
@@ -39,6 +47,7 @@ block content
                     h2
                         i.fa.fa-envelope-o
                         |  Email
+                        i.fa.fa-cog.pull-right
                     hr
             .col-md-6(name='center')
                 p.welcome Welcome
@@ -48,6 +57,7 @@ block content
                     h2
                         i.fa.fa-television
                         |  TV Shows
+                        i.fa.fa-cog.pull-right
                     hr
                     ul.tv-list.tv-list-left
                         each val in [0, 1, 2, 3, 4]
@@ -72,6 +82,7 @@ block content
                     h2
                         i.fa.fa-film
                         |  Movies
+                        i.fa.fa-cog.pull-right
                     hr
                     .movies-container
                         .movie(style="background-image: url(" + movies.list[0] + ")")
