@@ -43,6 +43,7 @@ Less "important":
 
 #### Auth
 * Passport
+* bcrypt
 
 #### Database
 * PostgresSQL
@@ -55,7 +56,7 @@ Less "important":
 #### Others
 * Linter:
 
-* ESLint (airbnb)
+    * ESLint (airbnb)
 
 
 ## How-to
