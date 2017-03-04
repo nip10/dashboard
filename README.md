@@ -11,7 +11,7 @@ The first realease/stage will have the following modules:
 * Email client (get unread messages from any email address)
 * Offline use: ability to use cached data for offline use (tvshows list, to-do's list, ...)
 
----
+
 ## Current Status
 
 Working:
@@ -33,7 +33,7 @@ Less "important":
 - [ ] gulp/webpack
 - [ ] PM2
 
----
+
 ## Stack
 
 * Nodejs (ES6)
@@ -57,7 +57,7 @@ Less "important":
 
 * ESLint (airbnb)
 
----
+
 ## How-to
 
 1. clone the repo or download zip file
