@@ -8,6 +8,8 @@ const User = {
     isNew: true,
     createdAt: moment().format('DD-MM-YYYY HH:mm:ss'),
     lastUpdate: null,
+    language: null,
+    username: null,
     tvshows: [],
     movies: {
       gender: [],
