@@ -1,35 +1,36 @@
 # Dashboard
 
-**Note:** This project is being rewritten (and improved) from the original php version. It's in a very early stage.
+Fully-costumizable modular dashboard which was originally designed to be a web-brower homepage.
 
-Personal fully-costumizable dashboard which was originally designed to be a web-brower homepage.
-Some of the features:
-* Weather and Forecast
-* Email client
-* TV-Show calendar
-* Latest movies
+The first realease/stage will have the following modules:
+
+* Weather (conditions and forecast)
+* TV-Show calendar (track your favourite TV-Shows)
+* Latest movies (check the latest releases)
 * To-do lists
+* Email client (get unread messages from any email address)
 * Offline use: ability to use cached data for offline use (tvshows list, to-do's list, ...)
 
 ---
 ## Current Status
 
-What is working/usable:
+Working:
+
 - [X] User authentication (sign-up, login)
-- [x] Weather/Forecast
+- [x] Weather
 - [x] Movies
 - [x] Front-end
 
-TODOs
-- [ ] User settings (allow users to change several params)
-- [ ] Refactor front-end js
-- [ ] TV Shows db
-- [ ] Movies db
+TODOs:
+
+- [ ] TV Shows (90% - db population missing)
+- [ ] User settings (70%)
 - [ ] Email client
+
+Less "important":
 - [ ] Redis for session storage
-- [ ] ES7 (async/await, imports/exports, ...)
-- [ ] sass instead of css
-- [ ] gulp/webpack (and Babel)
+- [ ] Use sass instead of css
+- [ ] gulp/webpack
 - [ ] PM2
 
 ---
@@ -44,7 +45,7 @@ TODOs
 * Passport
 
 #### Database
-* Postgres
+* PostgresSQL
 
 #### Views/Front-end
 * Pug
@@ -53,15 +54,16 @@ TODOs
 
 #### Others
 * Linter:
--- ESLint (airbnb)
+
+* ESLint (airbnb)
 
 ---
 ## How-to
 
-**Note:**  This is in early stages.
-
 1. clone the repo or download zip file
-2. run 'npm install'
-3. run 'npm start' (nodemon)
+2. edit .env.sample and rename to .env
+3. edit server/db/knexfile.sample.js and rename to knexfile.js
+4. run 'npm install'
+5. run 'npm start' (nodemon)
 or
-3. run 'npm run' (node)
+5. run 'npm run' (node)
