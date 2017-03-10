@@ -4,6 +4,9 @@
   "extends": "airbnb",
   "rules": {
     "linebreak-style": ["error", "windows"],
-    "no-use-before-define": ["error", { "functions": false, "classes": true }]
+    "no-use-before-define": ["error", { "functions": false, "classes": true }],
+    "no-unused-expressions": ["error", { "allowTernary": true }],
+    "no-param-reassign": "off",
+    "max-len":"off"
   }
 }

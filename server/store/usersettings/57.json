@@ -1,0 +1,25 @@
+{
+  "isNew": true,
+  "createdAt": "10-03-2017 21:33:45",
+  "lastUpdate": "10-03-2017 21:33:45",
+  "language": "pt-PT",
+  "username": "blabla6",
+  "tvshows": [],
+  "movies": {
+    "gender": [],
+    "rating": null,
+    "year": null
+  },
+  "email": {
+    "emailAddress": "blabla6@teste.com",
+    "server": null,
+    "onlyUnread": true
+  },
+  "weather": {
+    "location": {
+      "country": null,
+      "city": null
+    },
+    "unit": null
+  }
+}

@@ -1,11 +1,10 @@
 const express = require('express');
+const Promise = require('bluebird');
 
-const days = require('../helpers/days');
+const Utils = require('../utils/utils');
 const TvShows = require('../models/tvshows');
 const Movies = require('../models/movies');
 const Weather = require('../models/weather');
-
-const util = require('util');
 
 const router = express.Router();
 
@@ -19,34 +18,47 @@ router.get('/dashboard', (req, res) => {
   const userSettings = req.cookies.userSettings;
   if (!userSettings || userSettings.lenght === 0 || userSettings === 'null') {
     // try to read user settings from file (more on this on tasks.todo)
-    return res.status(400).send({ status: 'User settings not found. Make sure you didnt clean the browser cookies and re-login.' });
+    // refactor this because i dont want to just send json
+    // or catch the error on the front-end by looking up the 'status' var
+    return res.status(400).send({ status: 'User settings not found. Please login again.' });
   }
-  return Promise.all([
+
+  const promises = [
     TvShows.getTvShows(userSettings.tvshows),
     Movies.getMovies(),
     Weather.getConditions(userSettings.weather.location.country, userSettings.weather.location.city),
     Weather.getForecast(userSettings.weather.location.country, userSettings.weather.location.city),
-  ])
-  .then(([tvList, moviesList, weatherConditions, weatherForecast]) => {
-    res.render('dashboard', {
-      title: 'Dashboard',
-      tv: {
-        days: days.getListOfFive(5, -2, 'D MMM'),
-        list: tvList,
-      },
-      weather: {
-        days: days.getListOfFive(4, 0, 'ddd, D MMM'),
-        conditions: weatherConditions,
-        forecast: weatherForecast,
-      },
-      movies: {
-        list: moviesList,
-      },
+  ];
+
+  return Promise.all(promises.map(promise => promise.reflect()))
+    .then(([tvList, moviesList, weatherConditions, weatherForecast]) => {
+      const errors = {};
+      (!tvList.isFulfilled()) ? errors.tvList = true : tvList = tvList.value();
+      (!moviesList.isFulfilled()) ? errors.moviesList = true : moviesList = moviesList.value();
+      (!weatherConditions.isFulfilled()) ? errors.weatherConditions = true : weatherConditions = weatherConditions.value();
+      (!weatherForecast.isFulfilled()) ? errors.weatherForecast = true : weatherForecast = weatherForecast.value();
+      res.render('dashboard', {
+        title: 'Dashboard',
+        tv: {
+          days: Utils.getListOfFiveDays(5, -2, 'D MMM'),
+          list: tvList,
+        },
+        weather: {
+          days: Utils.getListOfFiveDays(4, 0, 'ddd, D MMM'),
+          conditions: weatherConditions,
+          forecast: weatherForecast,
+        },
+        movies: {
+          list: moviesList,
+        },
+        errors,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      // this means that (probably) the server crashed, render the error page with an alert
+      // eg: 'Server is down. Please try again later.'
     });
-  })
-  .catch((err) => {
-    return res.status(500).send({ status: err });
-  });
 });
 
 module.exports = router;
