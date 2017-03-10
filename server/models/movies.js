@@ -1,23 +1,22 @@
-const request = require('request');
+const rp = require('request-promise');
+const Promise = require('bluebird');
 
 const Movies = {
-  apiUrl: 'https://yts.ag/api/v2/list_movies.json?sort=date_added&limit=2',
 
   getMovies() {
     const imgArray = [];
+    const options = {
+      uri: 'https://yts.ag/api/v2/list_movies.json?sort=date_added&limit=2',
+      json: true,
+    };
     return new Promise((resolve, reject) => {
-      request({
-        url: this.apiUrl,
-      }, (error, response, body) => {
-        if (response.statusCode === 200 && !error) {
-          const bodyJSON = JSON.parse(body);
-          imgArray.push(bodyJSON.data.movies[0].medium_cover_image);
-          imgArray.push(bodyJSON.data.movies[1].medium_cover_image);
-          resolve(imgArray);
-        } else {
-          reject('Error fetching Movies');
-        }
-      });
+      rp(options)
+        .then((res) => {
+          imgArray.push(res.data.movies[0].medium_cover_image);
+          imgArray.push(res.data.movies[1].medium_cover_image);
+          return resolve(imgArray);
+        })
+        .catch(err => reject(err));
     });
   },
 };

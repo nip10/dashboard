@@ -1,21 +1,19 @@
 require('dotenv').config();
-const request = require('request');
+const rp = require('request-promise');
+const Promise = require('bluebird');
 
 const Weather = {
   apiKey: process.env.WU_API_KEY,
 
   getConditions(country, city) {
-    const url = `http://api.wunderground.com/api/${this.apiKey}/conditions/q/${country}/${city}.json`;
+    const options = {
+      uri: `http://api.wunderground.com/api/${this.apiKey}/conditions/q/${country}/${city}.json`,
+      json: true,
+    };
     return new Promise((resolve, reject) => {
-      request({
-        url,
-      }, (error, response, body) => {
-        if (response.statusCode === 200 && !error) {
-          const bodyJSON = JSON.parse(body);
-          const baseObj = bodyJSON.current_observation;
-          if (!bodyJSON.current_observation) {
-            return reject('Invalid response from the WU API (conditions)');
-          }
+      rp(options)
+        .then((res) => {
+          const baseObj = res.current_observation;
           return resolve({
             location: baseObj.display_location.full,
             temperature: baseObj.temp_c,
@@ -25,27 +23,20 @@ const Weather = {
             localtime: baseObj.local_time_rfc822,
             lastupdate: baseObj.observation_time_rfc822,
           });
-        }
-        return reject(error);
-      });
+        })
+        .catch(err => reject(err));
     });
   },
 
   getForecast(country, city) {
-    const url = `http://api.wunderground.com/api/${this.apiKey}/forecast/q/${country}/${city}.json`;
+    const options = {
+      uri: `http://api.wunderground.com/api/${this.apiKey}/forecast/q/${country}/${city}.json`,
+      json: true,
+    };
     return new Promise((resolve, reject) => {
-      request({
-        url,
-      }, (error, response, body) => {
-        if (response.statusCode === 200 && !error) {
-          const bodyJSON = JSON.parse(body);
-          if (!bodyJSON.forecast) {
-            return reject('Invalid response from the WU API (forecast)');
-          }
-          return resolve(bodyJSON.forecast.simpleforecast);
-        }
-        return reject(error);
-      });
+      rp(options)
+        .then(res => resolve(res.forecast.simpleforecast))
+        .catch(err => reject(err));
     });
   },
 };

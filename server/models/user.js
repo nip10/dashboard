@@ -6,7 +6,7 @@ const User = {
 
   userSettingsTemplate: {
     isNew: true,
-    createdAt: moment().format('DD-MM-YYYY HH:mm:ss'),
+    createdAt: null,
     lastUpdate: null,
     language: null,
     username: null,
@@ -34,10 +34,15 @@ const User = {
     return path.join(__dirname, '../store/usersettings/', `${userID.toString()}.json`);
   },
 
-  createUserSettings(user) {
+  createUserSettings(user, lang) {
+    const userSettings = Object.assign({}, this.userSettingsTemplate);
+    userSettings.email.emailAddress = user.email;
+    userSettings.language = lang;
+    userSettings.username = user.email.slice(0, user.email.indexOf('@'));
+    userSettings.createdAt = userSettings.lastUpdate = moment(user.created_at).format('DD-MM-YYYY HH:mm:ss');
     return new Promise((resolve, reject) => {
-      fs.writeFile(this.userSettingsPath(user),
-        JSON.stringify(this.userSettingsTemplate),
+      fs.writeFile(this.userSettingsPath(user.id),
+        JSON.stringify(userSettings),
         (err) => {
           if (err) reject(err);
           resolve();

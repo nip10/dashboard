@@ -17,7 +17,7 @@ router.post('/login', (req, res, next) => {
     return res.status(500).json({ status: 'Invalid Password' });
   }
 
-  req.body.email = validator.normalizeEmail(email); /* eslint no-param-reassign: ["error", { "props": false }] */
+  req.body.email = validator.normalizeEmail(email);
 
   passport.authenticate('local', (err, user) => {
     if (err) { return res.status(500).json({ status: 'Error in passport authenticate' }); }
@@ -45,7 +45,7 @@ router.post('/signup', (req, res, next) =>
         reject();
       })(req, res, next);
     }))
-    .then(user => User.createUserSettings(user))
+    .then(user => User.createUserSettings(user, req.acceptsLanguages()[0]))
     .then(() => res.status(200).json({ status: 'success' }))
     .catch(err => res.status(500).json({ status: err })));
 
