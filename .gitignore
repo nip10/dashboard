@@ -2,7 +2,7 @@ node_modules/
 .vscode/
 .env
 *.todo
-server/store/*.json
+server/store/
 server/db/knexfile.js
 playground/
 tasks.todo
