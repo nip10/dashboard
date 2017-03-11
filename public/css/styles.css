@@ -61,10 +61,20 @@ input:placeholder-shown {
 
 .centerall {
     display: flex;
-    align-items: center;
     height: 100vh;
     float: none;
     margin: 0 auto;
+    flex-flow: column wrap;
+    justify-content: center;
+}
+
+.alert-login {
+    display: none;
+}
+
+.alert-login p {
+    display: inline-block;
+    padding-left: 8px;
 }
 
 /*HEADER*/

@@ -1,6 +1,7 @@
 require('dotenv').config();
 const rp = require('request-promise');
 const Promise = require('bluebird');
+const moment = require('moment');
 
 const Weather = {
   apiKey: process.env.WU_API_KEY,
@@ -14,15 +15,16 @@ const Weather = {
       rp(options)
         .then((res) => {
           const baseObj = res.current_observation;
-          return resolve({
+          const conditions = {
             location: baseObj.display_location.full,
             temperature: baseObj.temp_c,
             humidity: baseObj.relative_humidity,
             description: baseObj.weather,
-            icon: baseObj.icon,
+            icon: (moment().format('hh') < 7 || moment().format('hh') > 20) ? baseObj.icon : `nt_${baseObj.icon}`,
             localtime: baseObj.local_time_rfc822,
             lastupdate: baseObj.observation_time_rfc822,
-          });
+          };
+          return resolve(conditions);
         })
         .catch(err => reject(err));
     });
