@@ -14,15 +14,14 @@ router.get('/conditions', (req, res) => {
   } else {
     Weather.getConditions(locationCountry, locationCity)
       .then((conditions) => {
-        const baseObj = conditions.current_observation;
         res.status(200).send({
-          location: baseObj.display_location.full,
-          temperature: baseObj.temp_c,
-          humidity: baseObj.relative_humidity,
-          description: baseObj.weather,
-          icon: baseObj.icon,
-          localtime: baseObj.local_time_rfc822,
-          lastupdate: baseObj.observation_time_rfc822,
+          location: conditions.location,
+          temperature: conditions.temperature,
+          humidity: conditions.humidity,
+          description: conditions.description,
+          icon: conditions.icon,
+          localtime: conditions.localtime,
+          lastupdate: conditions.lastupdate,
         });
       })
       .catch((err) => {
