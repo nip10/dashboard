@@ -4,11 +4,11 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-  const userSettingsTvshows = req.cookies.userSettings.tvshows;
+  const userSettingsTvshows = JSON.parse(req.cookies.userSettings.tvshows.shows);
   if (!userSettingsTvshows || userSettingsTvshows.length === 0 || userSettingsTvshows === 'null') {
     res.status(400).send({ error: 'You need to set at least one tvshow to fetch the episodes list.' });
   } else {
-    TvShows.getTvShows(req.cookies.userSettings.tvshows)
+    TvShows.getTvShows(userSettingsTvshows)
       .then((tv) => {
         res.status(200).send(tv);
       })

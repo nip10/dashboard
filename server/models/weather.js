@@ -6,9 +6,27 @@ const moment = require('moment');
 const Weather = {
   apiKey: process.env.WU_API_KEY,
 
-  getConditions(country, city) {
+  getCoordinates(country, city) {
     const options = {
-      uri: `http://api.wunderground.com/api/${this.apiKey}/conditions/q/${country}/${city}.json`,
+      uri: `http://maps.google.com/maps/api/geocode/json?address=${city}+${country}`,
+      json: true,
+    };
+    return new Promise((resolve, reject) => {
+      rp(options)
+        .then((res) => {
+          const location = {
+            lat: res.results.geometry.location.lat,
+            lng: results.geometry.location.lat,
+          }
+          resolve(location);
+        })
+        .catch(err => reject(err));
+    });
+  },
+
+  getConditions(lat, lng) {
+    const options = {
+      uri: `http://api.wunderground.com/api/${this.apiKey}/conditions/q/${lat},${lng}.json`,
       json: true,
     };
     return new Promise((resolve, reject) => {
@@ -24,15 +42,15 @@ const Weather = {
             localtime: baseObj.local_time_rfc822,
             lastupdate: baseObj.observation_time_rfc822,
           };
-          return resolve(conditions);
+          resolve(conditions);
         })
         .catch(err => reject(err));
     });
   },
 
-  getForecast(country, city) {
+  getForecast(lat, lng) {
     const options = {
-      uri: `http://api.wunderground.com/api/${this.apiKey}/forecast/q/${country}/${city}.json`,
+      uri: `http://api.wunderground.com/api/${this.apiKey}/forecast/q/${lat},${lng}.json`,
       json: true,
     };
     return new Promise((resolve, reject) => {
