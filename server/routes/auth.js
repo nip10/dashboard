@@ -25,7 +25,7 @@ router.post('/login', (req, res, next) => {
     if (user) {
       console.log(chalk.blue('User %s connected'), user.id);
       User.getUserSettingsFromFile(user.id)
-        .then(userSettings => res.cookie('userSettings', userSettings))
+        .then(userSettings => res.cookie('userSettings', JSON.stringify(userSettings)))
         .then(() => {
           req.logIn(user, (err) => {
             if (err) { return res.status(500).json({ error: 'Error in passport logIn' }); }

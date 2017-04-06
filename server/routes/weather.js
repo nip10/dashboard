@@ -4,15 +4,17 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/conditions', (req, res) => {
-  const locationCountry = req.cookies.userSettings.weather.location.country;
-  const locationCity = req.cookies.userSettings.weather.location.city;
+  const location = {
+    lat: JSON.parse(req.cookies.userSettings.weather.location.lat),
+    lng: JSON.parse(req.cookies.userSettings.weather.location.lng),
+  };
 
-  if (!locationCountry || locationCountry.length === 0 || locationCountry === 'null') {
+  if (!location.lat || location.lat.length === 0 || location.lat === 'null') {
     res.status(400).send({ error: 'You need to set a County to get the Weather.' });
-  } else if (!locationCity || locationCity.length === 0 || locationCity === 'null') {
+  } else if (!location.lng || location.lng.length === 0 || location.lng === 'null') {
     res.status(400).send({ error: 'You need to set a City to get the Weather.' });
   } else {
-    Weather.getConditions(locationCountry, locationCity)
+    Weather.getConditions(location.lat, location.lng)
       .then((conditions) => {
         res.status(200).send({
           location: conditions.location,
@@ -31,15 +33,17 @@ router.get('/conditions', (req, res) => {
 });
 
 router.get('/forecast', (req, res) => {
-  const locationCountry = req.cookies.userSettings.weather.location.country;
-  const locationCity = req.cookies.userSettings.weather.location.city;
+  const location = {
+    lat: JSON.parse(req.cookies.userSettings.weather.location.lat),
+    lng: JSON.parse(req.cookies.userSettings.weather.location.lng),
+  };
 
-  if (!locationCountry || locationCountry.length === 0 || locationCountry === 'null') {
+  if (!location.lat || location.lat.length === 0 || location.lat === 'null') {
     res.status(400).send({ error: 'You need to set a County to get the Weather.' });
-  } else if (!locationCity || locationCity.length === 0 || locationCity === 'null') {
+  } else if (!location.lng || location.lng.length === 0 || location.lng === 'null') {
     res.status(400).send({ error: 'You need to set a City to get the Weather.' });
   } else {
-    Weather.getForecast(locationCountry, locationCity)
+    Weather.getForecast(location.lat, location.lng)
       .then((forecast) => {
         res.status(200).send(forecast);
       })

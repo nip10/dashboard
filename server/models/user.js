@@ -1,6 +1,7 @@
 const fs = require('fs');
 const moment = require('moment');
 const path = require('path');
+const _ = require('lodash');
 
 const User = {
 
@@ -10,7 +11,11 @@ const User = {
     lastUpdate: null,
     language: null,
     username: null,
-    tvshows: [],
+    tvshows: {
+      quality: [],
+      source: [],
+      shows: [],
+    },
     movies: {
       gender: [],
       rating: null,
@@ -56,6 +61,32 @@ const User = {
         if (err) reject(err);
         resolve(JSON.parse(data));
       });
+    });
+  },
+
+  updateUserSettingsFile(userID, userSettings) {
+    return new Promise((resolve, reject) => {
+      fs.writeFile(this.userSettingsPath(userID),
+        JSON.stringify(userSettings),
+        (err) => {
+          if (err) reject(err);
+          resolve();
+        });
+    });
+  },
+
+  updateUserSettings(userID, setting, data) {
+    return new Promise((resolve, reject) => {
+      this.getUserSettingsFromFile(userID)
+        .then((userSettings) => {
+          _.set(userSettings, setting, data);
+          this.updateUserSettingsFile(userID, userSettings);
+          resolve(userSettings);
+        })
+        .catch((err) => {
+          console.log(err);
+          reject(err);
+        });
     });
   },
 

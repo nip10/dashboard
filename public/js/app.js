@@ -36,7 +36,7 @@ $('#login-form').submit(function(e) {
         })
         .done(function(data, textStatus, jqXHR) {
             logAjaxDone(data, textStatus, jqXHR);
-            if (data.status === 'success') window.location.href = '/dashboard'
+            if (data.status === 'success') window.location.href = '/dashboard';
         });
 });
 
@@ -71,6 +71,112 @@ $('#signup-form').submit(function(e) {
         });
 });
 
+// Module Toggle Animations Settings
+var animationTime = 1000;
+
+// Left Modules
+function toggleLeftModuleSettings(el, moduleName) {
+    var moduleSettings = $(el).closest('div').children('.module-settings-left');
+    if (!moduleSettings.is(':animated')) {
+        if (moduleSettings.is(':visible')) {            
+            $(moduleSettings).animate({ left: "-=1000", right: "+=1000" }, animationTime, function() {$(this).hide(); idModule(moduleName);});
+        } else {            
+            $(moduleSettings).show().animate({ left: "+=1000", right: "-=1000" }, animationTime, function() {idModule(moduleName);});
+        }
+    } 
+};
+
+// Right Modules
+function toggleRightModuleSettings(el, moduleName) {
+    var moduleSettings = $(el).closest('div').children('.module-settings-right');
+    if (!moduleSettings.is(':animated')) {
+        if (moduleSettings.is(':visible')) {
+            $(moduleSettings).animate({ left: "+=1000", right: "-=1000" }, animationTime, function() {$(this).hide(); idModule(moduleName);});
+        } else {            
+            $(moduleSettings).show().animate({ left: "-=1000", right: "+=1000" }, animationTime, function() {idModule(moduleName);});
+        }
+    }
+};
+
+// Toggle module when we are editing that module's settings
+function idModule(moduleName) {
+    if (moduleName === 'weather') $('.weather-current, .weather-forecast, .location').toggle();
+    // if (moduleName === 'email')
+    if (moduleName === 'tv') $('.tv-list').toggle();
+    if (moduleName === 'movies') $('.movies-container').toggle();
+};
+
+// Tv Shows Module
+// Options > Downloads (checkboxes)
+function populateCheckboxes() {
+    var userSettings = Cookies.getJSON('userSettings');
+    var parentEl = $('.tv-settings-content-downloads');
+    var quality = userSettings.tvshows.quality;
+    for (var i = 0; i < quality.length; i++) {
+        $(parentEl).find("input:checkbox[value=" + quality[i] + "]").prop('checked', true);
+    }
+    var sources = userSettings.tvshows.source;
+    for (var i = 0; i < sources.length; i++) {
+        $(parentEl).find("input:checkbox[value=" + sources[i] + "]").prop('checked', true);
+    }
+};
+
+// Options > Subtitles (select)
+function populateSelect() {
+    var userSettings = Cookies.getJSON('userSettings');
+    var parentEl = $('.tv-settings-content-subtitles');
+    var language = getLanguageNativeName(userSettings.language);
+    $('.subtitles').val(language);
+}
+
+// Tv-shows settings
+// 'Manage'
+$('.tv-settings-primary li:first-child').click(function(e) {
+    if ($(this).hasClass('active')) return;
+    $('.tv-settings-primary li:last-child').removeClass('active');
+    $(this).addClass('active');
+    $('.tv-settings-secondary').hide();
+    $('.tv-settings-content-downloads').hide();
+    $('.tv-settings-content-subtitles').hide();
+    $('.tv-settings-content-showlist').show();
+});
+
+// 'Options'
+$('.tv-settings-primary li:last-child').click(function(e) {
+    if ($(this).hasClass('active')) return;
+    $('.tv-settings-content-showlist').hide();
+    $('.tv-settings-primary li:first-child').removeClass('active');
+    $(this).addClass('active');
+    $('.tv-settings-secondary').show();
+
+     if ($('.tv-settings-secondary li:last-child').hasClass('active-sub')) {
+        $('.tv-settings-content-downloads').show();
+     } else {
+        $('.tv-settings-content-subtitles').show();
+     }
+});
+
+// 'Subtitles'
+$('.tv-settings-secondary li:first-child').click(function(e) {
+    if ($(this).hasClass('active-sub')) return;
+    $('.tv-settings-secondary li:last-child').removeClass('active-sub');
+    $(this).addClass('active-sub');
+    $('.tv-settings-content-downloads').hide();
+    $('.tv-settings-content-downloads *').hide();
+    $('.tv-settings-content-subtitles').show();
+    $('.tv-settings-content-subtitles *').show();
+});
+
+// 'Download'
+$('.tv-settings-secondary li:last-child').click(function(e) {
+    if ($(this).hasClass('active-sub')) return;
+    $('.tv-settings-secondary li:first-child').removeClass('active-sub');
+    $(this).addClass('active-sub');
+    $('.tv-settings-content-subtitles').hide();
+    $('.tv-settings-content-subtitles *').hide();
+    $('.tv-settings-content-downloads').show();
+    $('.tv-settings-content-downloads *').show();
+});
 
 // UTILS
 // Logs failed ajax requests

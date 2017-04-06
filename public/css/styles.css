@@ -7,8 +7,9 @@ html {
 body {
     background-color: transparent;
     font-family: 'Open Sans', sans-serif;
-    width: 100vw;
-    height: 100vh;
+    max-width: 100vw;
+    max-height: 100vh;
+    overflow: hidden;
 }
 
 ul {
@@ -79,18 +80,18 @@ input:placeholder-shown {
 
 /*HEADER*/
 .header {
-    min-height: 30px;
     background-color: #333;
 }
 
 .header p {
-    color: #e4ccff;
+    color: #fff
 }
 
 /*WEATHER*/
 
 /*CONDITIONS*/
 .weather {
+    position: relative;
     width: 100%;
     height: 450px;
 }
@@ -200,6 +201,7 @@ input:placeholder-shown {
 /*EMAIL*/
 
 .email {
+    position: relative;
     width: 100%;
     height: 450px;
 }
@@ -207,6 +209,7 @@ input:placeholder-shown {
 /*TV*/
 
 .tv {
+    position: relative;
     width: 100%;
     height: 450px;
 }
@@ -265,6 +268,7 @@ input:placeholder-shown {
 /*MOVIES*/
 
 .movies {
+    position: relative;
     width: 100%;
     height: 450px;
 }
@@ -290,6 +294,7 @@ input:placeholder-shown {
     width:210px;
     height:315px;
     background: url(../images/dev/210x315.png) no-repeat;
+    background-size: cover;
     margin-right: 10px;
 }
 
@@ -410,4 +415,206 @@ input:placeholder-shown {
 	color: #fff;
 	background-color: #1CA347;
 	border-color: #1CA347;
+}
+
+
+/*TESTING*/
+
+.module-settings {
+    display: none;
+    position: absolute;
+    top: 60px;
+    bottom: 0;
+    background-color: #333;
+    border-radius: 2px;
+    box-shadow: 1px 1px;
+}
+
+.module-settings-left {
+    right: 1000px;
+    left: -1000px;
+}
+
+.module-settings-right {
+    right: -1000px;
+    left: 1000px;
+}
+
+.white {
+    color: white;
+}
+
+.setting-input {
+    width: 75%;
+    padding-bottom: 15px;
+    margin: 0 auto;
+}
+
+.setting-submit {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding-bottom: 20px;
+}
+
+form:first-child {
+    padding-top: 25px;
+}
+
+.tv-settings-primary {
+    background-color: white;
+    padding: 0;
+    margin: 0;
+    height: 2em;
+    border: 1px solid white;
+    line-height: 2em;
+}
+
+.tv-settings-primary li {
+    background-color: red;
+    display: inline-block;
+    width: 50%;
+    height: 100%;
+    text-align: center;
+}
+
+.tv-settings-primary li:hover{
+    cursor: pointer;
+}
+
+.tv-settings-primary li:first-child {
+    border-right: 1px solid white;
+}
+
+.tv-settings-secondary {
+    display: none;
+    background-color: white;
+    padding: 0;
+    margin: 0;
+    height: 2em;
+    border: 1px solid white;
+    border-top: none;
+    line-height: 2em;
+}
+
+.tv-settings-secondary li {
+    background-color: red;
+    display: inline-block;
+    width: 50%;
+    height: 100%;
+    text-align: center;
+}
+
+.tv-settings-secondary li:hover{
+    cursor: pointer;
+}
+
+.tv-settings-secondary li:first-child {
+    border-right: 1px solid white;
+}
+
+.tv-settings-content-showlist {
+    background-color: blueviolet;
+    max-height: 100%;
+    overflow-y: auto;
+    list-style-type: disc;
+}
+
+.tv-settings-content-showlist li {
+    background-color: yellow;
+    padding-top: 5px;
+}
+
+.tv-settings-content-showlist span {
+    font-weight: 800;
+    margin-right: 15px;
+    line-height: 1em;
+}
+
+.tv-settings-content-showlist span:hover {
+    cursor: pointer;
+}
+
+.active {
+    background-color: darkred !important;
+}
+
+.active-sub {
+    background-color: indianred !important;
+}
+
+.fa-cog {
+    cursor: pointer;
+}
+
+p, input {
+    color: white !important;
+}
+
+.tv-settings-content {
+    height: 100%;
+}
+
+.tv-settings-content-subtitles,
+.tv-settings-content-downloads {
+    display: none;
+    position: relative;
+    height: 100%;
+}
+
+.tv-settings-content-subtitles button,
+.tv-settings-content-downloads button {
+    position: absolute;
+    bottom: 60px;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+}
+
+.btn-update {
+    width: 200px;
+    height: 70px;
+	background-color: #59B2E0;
+	outline: none;
+	color: #fff;
+	font-size: 14px;
+	height: auto;
+	font-weight: normal;
+	padding: 14px 0;
+	text-transform: uppercase;
+	border-color: #59B2E6;
+}
+
+.btn-update:hover,
+.btn-update:focus {
+	color: #fff;
+	background-color: #53A3CD;
+	border-color: #53A3CD;
+}
+
+input[type='checkbox'] {
+    margin: 0;
+    margin-left: 10px;
+}
+
+label {
+    margin: 0;
+    font-weight: 200;
+}
+
+.movies-settings-content {
+    position: relative;
+    height: 100%;
+}
+
+.movies-settings-addfilter {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+}
+
+.movies-settings-filter {
+    color: white !important;
 }

@@ -10,12 +10,12 @@ const router = express.Router();
 
 router.get('/', (req, res) => {
   res.render('index', {
-    title: 'index',
+    title: 'Dashboard - Index',
   });
 });
 
 router.get('/dashboard', (req, res) => {
-  const userSettings = req.cookies.userSettings;
+  const userSettings = JSON.parse(req.cookies.userSettings);
   if (!userSettings || userSettings.lenght === 0 || userSettings === 'null') {
     // try to read user settings from file (more on this on tasks.todo)
     // refactor this because i dont want to just send json
@@ -24,10 +24,10 @@ router.get('/dashboard', (req, res) => {
   }
 
   const promises = [
-    TvShows.getTvShows(userSettings.tvshows),
+    TvShows.getTvShows(userSettings.tvshows.shows),
     Movies.getMovies(),
-    Weather.getConditions(userSettings.weather.location.country, userSettings.weather.location.city),
-    Weather.getForecast(userSettings.weather.location.country, userSettings.weather.location.city),
+    Weather.getConditions(userSettings.weather.location.lat, userSettings.weather.location.lng),
+    Weather.getForecast(userSettings.weather.location.lat, userSettings.weather.location.lng),
   ];
 
   return Promise.all(promises.map(promise => promise.reflect()))
@@ -38,10 +38,14 @@ router.get('/dashboard', (req, res) => {
       (!weatherConditions.isFulfilled()) ? errors.weatherConditions = true : weatherConditions = weatherConditions.value();
       (!weatherForecast.isFulfilled()) ? errors.weatherForecast = true : weatherForecast = weatherForecast.value();
       res.render('dashboard', {
-        title: 'Dashboard',
+        title: 'Dashboard - Main',
+        user: {
+          username: userSettings.username,
+        },
         tv: {
           days: Utils.getListOfFiveDays(5, -2, 'D MMM'),
           list: tvList,
+          settings: userSettings.tvshows.shows,
         },
         weather: {
           days: Utils.getListOfFiveDays(4, 0, 'ddd, D MMM'),

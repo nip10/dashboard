@@ -3,7 +3,7 @@ const knex = require('../db/connection');
 const moment = require('moment');
 const Promise = require('bluebird');
 
-const startInterval = moment().subtract(60, 'days').format('YYYY-MM-DD'); // correct value is 2
+const startInterval = moment().subtract(90, 'days').format('YYYY-MM-DD'); // correct value is 2
 const endInterval = moment().add(2, 'days').format('YYYY-MM-DD');
 
 const TvShows = {

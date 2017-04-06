@@ -15,6 +15,7 @@ const auth = require('./routes/auth');
 const movies = require('./routes/movies');
 const weather = require('./routes/weather');
 const tvshows = require('./routes/tvshows');
+const user = require('./routes/user');
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -40,6 +41,7 @@ app.use('/api/auth', auth);
 app.use('/api/weather', weather);
 app.use('/api/movies', movies);
 app.use('/api/tvshows', tvshows);
+app.use('/api/user', user);
 
 app.use((req, res, next) => {
   const err = new Error('Not Found');
