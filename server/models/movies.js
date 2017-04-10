@@ -1,5 +1,5 @@
-const rp = require('request-promise');
-const Promise = require('bluebird');
+import rp from 'request-promise';
+import Promise from 'bluebird';
 
 const Movies = {
 
@@ -14,7 +14,7 @@ const Movies = {
         .then((res) => {
           imgArray.push(res.data.movies[0].medium_cover_image);
           imgArray.push(res.data.movies[1].medium_cover_image);
-          return resolve(imgArray);
+          resolve(imgArray);
         })
         .catch(err => reject(err));
     });

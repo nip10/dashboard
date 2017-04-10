@@ -1,7 +1,8 @@
 require('dotenv').config();
-const rp = require('request-promise');
-const Promise = require('bluebird');
-const moment = require('moment');
+
+import rp from 'request-promise';
+import Promise from 'bluebird';
+import moment from 'moment';
 
 const Weather = {
   apiKey: process.env.WU_API_KEY,

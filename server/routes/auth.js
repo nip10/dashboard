@@ -1,9 +1,11 @@
-const express = require('express');
-const validator = require('validator');
-const passport = require('../auth/local');
-const authHelpers = require('../auth/_helpers');
-const User = require('../models/user');
-const chalk = require('chalk');
+import express from 'express';
+import validator from 'validator';
+import chalk from 'chalk';
+
+import passport from '../auth/local';
+import authHelpers from '../auth/_helpers';
+
+import User from '../models/user';
 
 const router = express.Router();
 

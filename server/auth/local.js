@@ -1,9 +1,8 @@
-const passport = require('passport');
+import passport from 'passport';
 const LocalStrategy = require('passport-local').Strategy;
-
-const init = require('./passport');
-const knex = require('../db/connection');
-const authHelpers = require('./_helpers');
+import init from './passport';
+import knex from '../db/connection';
+import authHelpers from './_helpers';
 
 const options = {
   usernameField: 'email',

@@ -1,5 +1,6 @@
-const TvShows = require('../models/tvshows');
-const express = require('express');
+import express from 'express';
+
+import TvShows from '../models/tvshows';
 
 const router = express.Router();
 

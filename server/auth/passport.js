@@ -1,5 +1,5 @@
-const passport = require('passport');
-const knex = require('../db/connection');
+import passport from 'passport';
+import knex from '../db/connection';
 
 module.exports = () => {
   passport.serializeUser((user, done) => {

@@ -1,10 +1,14 @@
 require('dotenv').config();
-const knex = require('../db/connection');
-const moment = require('moment');
-const Promise = require('bluebird');
 
-const startInterval = moment().subtract(90, 'days').format('YYYY-MM-DD'); // correct value is 2
-const endInterval = moment().add(2, 'days').format('YYYY-MM-DD');
+import moment from 'moment';
+import Promise from 'bluebird';
+
+import knex from '../db/connection';
+
+// const startInterval = moment().subtract(2, 'days').format('YYYY-MM-DD');
+const startInterval = '2017-02-01';
+// const endInterval = moment().add(2, 'days').format('YYYY-MM-DD');
+const endInterval = '2017-02-06';
 
 const TvShows = {
   getTvShows(tvshows) {
