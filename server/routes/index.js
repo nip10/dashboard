@@ -1,10 +1,11 @@
-const express = require('express');
-const Promise = require('bluebird');
+import express from 'express';
+import Promise from 'bluebird';
 
-const Utils = require('../utils/utils');
-const TvShows = require('../models/tvshows');
-const Movies = require('../models/movies');
-const Weather = require('../models/weather');
+import Utils from '../utils/utils';
+
+import TvShows from '../models/tvshows';
+import Movies from '../models/movies';
+import Weather from '../models/weather';
 
 const router = express.Router();
 

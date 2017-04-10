@@ -1,5 +1,6 @@
-const Weather = require('../models/weather');
-const express = require('express');
+import express from 'express';
+
+import Weather from '../models/weather';
 
 const router = express.Router();
 

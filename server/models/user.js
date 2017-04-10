@@ -1,7 +1,7 @@
-const fs = require('fs');
-const moment = require('moment');
-const path = require('path');
-const _ = require('lodash');
+import fs from 'fs';
+import moment from 'moment';
+import path from 'path';
+import _ from 'lodash';
 
 const User = {
 
@@ -80,6 +80,8 @@ const User = {
       this.getUserSettingsFromFile(userID)
         .then((userSettings) => {
           _.set(userSettings, setting, data);
+          // this doesnt work to remove tvshows because it overwrites the array.
+          // solution1: get the array, remove the tvshow, set the new array
           this.updateUserSettingsFile(userID, userSettings);
           resolve(userSettings);
         })

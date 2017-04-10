@@ -1,21 +1,21 @@
-const path = require('path');
-const morgan = require('morgan');
-const pug = require('pug');
-const cookieParser = require('cookie-parser');
-const bodyParser = require('body-parser');
-const session = require('express-session');
-const passport = require('passport');
-// const favicon = require('serve-favicon');
-const express = require('express');
+import path from 'path';
+import morgan from 'morgan';
+import pug from 'pug';
+import cookieParser from 'cookie-parser';
+import bodyParser from 'body-parser';
+import session from 'express-session';
+import passport from 'passport';
+// import favicon from 'serve-favicon';
+import express from 'express';
 
 const app = express();
 
-const index = require('./routes/index');
-const auth = require('./routes/auth');
-const movies = require('./routes/movies');
-const weather = require('./routes/weather');
-const tvshows = require('./routes/tvshows');
-const user = require('./routes/user');
+import index from './routes/index';
+import auth from './routes/auth';
+import movies from './routes/movies';
+import weather from './routes/weather';
+import tvshows from './routes/tvshows';
+import user from './routes/user';
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');

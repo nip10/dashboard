@@ -1,5 +1,6 @@
-const Movies = require('../models/movies');
-const express = require('express');
+import express from 'express';
+
+import Movies from '../models/movies';
 
 const router = express.Router();
 
