@@ -618,3 +618,7 @@ label {
 .movies-settings-filter {
     color: white !important;
 }
+
+.ui-menu-item {
+    color: red !important;
+}
