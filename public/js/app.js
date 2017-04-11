@@ -224,6 +224,30 @@ $('#tv-settings-source').click(function(e) {
     });
 });
 
+// AUTO-COMPLETE (weather location)
+$("#autocomplete-countries").focus(function() {
+    var listOfCountries = listOfLocations.map(function(el) {return el.country;});
+    $("#autocomplete-countries").autocomplete({
+        source: listOfCountries
+    });
+});
+
+$("#autocomplete-cities").focus(function() {
+  var selectedCountry = $("input[name=weather-country]").val();
+  if (!selectedCountry || selectedCountry === '') {
+      console.log('You need to select a Country first !');
+      return;
+  }
+  var listOfCities = foo.filter(function(el) {return el.country === selectedCountry}).map(function(el) {return el.states;});
+  $("#autocomplete-cities").autocomplete({
+    source: listOfCities[0]
+  });
+});
+
+$("#weather-settings").submit((e) => {
+    e.preventDefault();
+});
+
 // UTILS
 // Logs failed ajax requests
 var logAjaxFail = function(jqXHR, textStatus, errorThrown) {
