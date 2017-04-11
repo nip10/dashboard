@@ -120,37 +120,38 @@ block content
 
                                 .tv-settings-content-subtitles
                                     p Language:
-                                    select.subtitles
+                                    select.subtitles-language
                                         option(value='Deutsch') Deutsch
                                         option(value='English') English                                    
                                         option(value='Français') Français
                                         option(value='Italiano') Italiano
                                         option(value='Português') Português
-                                    button.btn.btn-update(type='button', name='tv-settings-subtitles-submit') Update
+                                    p THIS FEATURE IS NOT WORKING YET.
+                                    button.btn.btn-update(type='button', name='tv-settings-subtitles-submit', id='tv-settings-language') Update
 
                                 .tv-settings-content-downloads
                                     p Quality:
                                         label
-                                            input(type='checkbox', value='720p') 
+                                            input(type='checkbox', name='quality', value='720p') 
                                             | 720p
                                         label
-                                            input(type='checkbox', value='1080p')
+                                            input(type='checkbox', name='quality', value='1080p')
                                             | 1080p
                                         label
-                                            input(type='checkbox', value='4k')
+                                            input(type='checkbox', name='quality', value='4k')
                                             | 4k
                                     p Source:
-                                        input(type='checkbox', value='hdtv')
+                                        input(type='checkbox', name='source', value='hdtv')
                                         | HDTV
-                                        input(type='checkbox', value='web-dl')
+                                        input(type='checkbox', name='source', value='web-dl')
                                         | WEB-DL
-                                        input(type='checkbox', value='web-rip')
+                                        input(type='checkbox', name='source', value='web-rip')
                                         | WEB-RIP
-                                    button.btn.btn-update(type='button', name='tv-settings-downloads-submit') Update
+                                    button.btn.btn-update(type='button', name='tv-settings-downloads-submit', id='tv-settings-source') Update
 
                                 ul.tv-settings-content-showlist
                                     each val in tv.settings
-                                        li= val
+                                        li(data-tvshow=val)= val
                                             span.tv-settings-delete.pull-right -
 
                 .movies
