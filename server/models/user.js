@@ -36,15 +36,20 @@ const User = {
   },
 
   userSettingsPath(userID) {
-    return path.join(__dirname, '../store/usersettings/', `${userID.toString()}.json`);
+    return path.join(__dirname, '../store/usersettings/', `${_.toString(userID)}.json`);
   },
 
   createUserSettings(user, lang) {
-    const userSettings = Object.assign({}, this.userSettingsTemplate);
-    userSettings.email.emailAddress = user.email;
-    userSettings.language = lang;
-    userSettings.username = user.email.slice(0, user.email.indexOf('@'));
-    userSettings.createdAt = userSettings.lastUpdate = moment(user.created_at).format('DD-MM-YYYY HH:mm:ss');
+    const tempSettings = {
+      username: user.email.slice(0, _.indexOf(user.email, '@')),
+      email: {
+        address: user.email,
+      },
+      language: lang,
+      createdAt: moment(user.created_at).format('DD-MM-YYYY HH:mm:ss'),
+      lastUpdate: moment(user.created_at).format('DD-MM-YYYY HH:mm:ss'),
+    };
+    const userSettings = _.assign({}, this.userSettingsTemplate, tempSettings);
     return new Promise((resolve, reject) => {
       fs.writeFile(this.userSettingsPath(user.id),
         JSON.stringify(userSettings),
@@ -70,18 +75,50 @@ const User = {
         JSON.stringify(userSettings),
         (err) => {
           if (err) reject(err);
-          resolve();
+          resolve(userSettings);
         });
     });
   },
 
-  updateUserSettings(userID, setting, data) {
+  editUserSettings(userID, settingName, settingData) {
     return new Promise((resolve, reject) => {
       this.getUserSettingsFromFile(userID)
         .then((userSettings) => {
-          _.set(userSettings, setting, data);
-          // this doesnt work to remove tvshows because it overwrites the array.
-          // solution1: get the array, remove the tvshow, set the new array
+          for (let i = 0; i < settingName.length; i++) {
+            _.set(userSettings, settingName[i], settingData[i]);
+          }
+          return this.updateUserSettingsFile(userID, userSettings);
+        })
+        .then((userSettings) => {
+          resolve(userSettings);
+        })
+        .catch((err) => {
+          console.log(err);
+          reject(err);
+        });
+    });
+  },
+
+  addUserSettings(userID, setting, data) {
+    return new Promise((resolve, reject) => {
+      this.getUserSettingsFromFile(userID)
+        .then((userSettings) => {
+          _.get(userSettings, setting).push(data);
+          this.updateUserSettingsFile(userID, userSettings);
+          resolve(userSettings);
+        })
+        .catch((err) => {
+          console.log(err);
+          reject(err);
+        });
+    });
+  },
+
+  removeUserSettings(userID, setting, data) {
+    return new Promise((resolve, reject) => {
+      this.getUserSettingsFromFile(userID)
+        .then((userSettings) => {
+          _.pull(_.get(userSettings, setting), data);
           this.updateUserSettingsFile(userID, userSettings);
           resolve(userSettings);
         })

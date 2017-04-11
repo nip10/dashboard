@@ -51,7 +51,7 @@ $('#signup-form').submit(function(e) {
     var email = $( "input[name='signup-email']" ).val();
     var password = $( "input[name='signup-password']" ).val();
 
-    $.post('http://localhost:3000/api/auth/signup', { email: email, password: password })
+    $.post('http://localhost:3000/api/auth/signup', { email, password })
         .fail(function(jqXHR, textStatus, errorThrown) {
             logAjaxFail(jqXHR, textStatus, errorThrown);
             const error = jqXHR.responseJSON.error;
@@ -126,7 +126,7 @@ function populateSelect() {
     var userSettings = Cookies.getJSON('userSettings');
     var parentEl = $('.tv-settings-content-subtitles');
     var language = getLanguageNativeName(userSettings.language);
-    $('.subtitles').val(language);
+    $('.subtitles-language').val(language);
 }
 
 // Tv-shows settings
@@ -176,6 +176,52 @@ $('.tv-settings-secondary li:last-child').click(function(e) {
     $('.tv-settings-content-subtitles *').hide();
     $('.tv-settings-content-downloads').show();
     $('.tv-settings-content-downloads *').show();
+});
+
+
+$('.tv-settings-delete').click(function(e) {
+    var tvshowToRemove = $(this).parent().data("tvshow");
+    var that = this;
+
+    $.ajax({
+        url: 'http://localhost:3000/api/user/settings',
+        type: 'DELETE',
+        data: {settingName: 'tvshows.shows', settingData: tvshowToRemove}
+    })
+    .fail(function(jqXHR, textStatus, errorThrown) {
+        logAjaxFail(jqXHR, textStatus, errorThrown);
+    })
+    .done(function(data, textStatus, jqXHR) {
+        logAjaxDone(data, textStatus, jqXHR);
+        $(that).parent().fadeOut(90).remove();
+    });
+});
+
+$('#tv-settings-language').click(function(e) {
+});
+
+$('#tv-settings-source').click(function(e) {
+    var quality = [];
+    $(".tv-settings-content-downloads input:checkbox[name='quality']:checked").each(function(){
+        quality.push($(this).val());
+    });
+    
+    var source = [];
+    $(".tv-settings-content-downloads input:checkbox[name='source']:checked").each(function(){
+        source.push($(this).val());
+    });
+
+    $.ajax({
+        url: 'http://localhost:3000/api/user/settings',
+        type: 'PUT',
+        data: {settingName: ['tvshows.quality', 'tvshows.source'], settingData: [quality, source]},
+    })
+    .fail(function(jqXHR, textStatus, errorThrown) {
+        logAjaxFail(jqXHR, textStatus, errorThrown);
+    })
+    .done(function(data, textStatus, jqXHR) {
+        logAjaxDone(data, textStatus, jqXHR);        
+    });
 });
 
 // UTILS
