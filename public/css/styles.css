@@ -548,10 +548,6 @@ form:first-child {
     cursor: pointer;
 }
 
-p, input {
-    color: white !important;
-}
-
 .tv-settings-content {
     height: 100%;
 }
@@ -619,6 +615,14 @@ label {
     color: white !important;
 }
 
-.ui-menu-item {
-    color: red !important;
+/* AUTO-COMPLETE (Weather Location) */
+
+.ui-menu {
+    background: white;
 }
+
+/* TEMP */
+
+/*p, input {
+    color: white !important;
+}*/

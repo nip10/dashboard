@@ -236,9 +236,10 @@ $("#autocomplete-cities").focus(function() {
   var selectedCountry = $("input[name=weather-country]").val();
   if (!selectedCountry || selectedCountry === '') {
       console.log('You need to select a Country first !');
+      // append error message
       return;
   }
-  var listOfCities = foo.filter(function(el) {return el.country === selectedCountry}).map(function(el) {return el.states;});
+  var listOfCities = listOfLocations.filter(function(el) {return el.country === selectedCountry}).map(function(el) {return el.states;});
   $("#autocomplete-cities").autocomplete({
     source: listOfCities[0]
   });
@@ -246,6 +247,34 @@ $("#autocomplete-cities").focus(function() {
 
 $("#weather-settings").submit((e) => {
     e.preventDefault();
+
+    var country = $("input[name=weather-country]").val();
+    var city = $("input[name=weather-city]").val();
+ 
+    // get coordinates from location
+    $.get(`http://maps.google.com/maps/api/geocode/json?address=${city}+${country}`)
+        .fail(function(jqXHR, textStatus, errorThrown) {
+            logAjaxFail(jqXHR, textStatus, errorThrown);
+        })
+        .done(function(data, textStatus, jqXHR) {
+            logAjaxDone(data, textStatus, jqXHR);
+            var location = {
+                lat: data.results[0].geometry.location.lat,
+                lng: data.results[0].geometry.location.lng
+            };
+            // change settings
+            $.ajax({
+                url: 'http://localhost:3000/api/user/settings',
+                type: 'PUT',
+                data: {settingName: ['weather.location'], settingData: [location]},
+            })
+            .fail(function(jqXHR, textStatus, errorThrown) {
+                logAjaxFail(jqXHR, textStatus, errorThrown);
+            })
+            .done(function(data, textStatus, jqXHR) {
+                logAjaxDone(data, textStatus, jqXHR);        
+            });
+        })
 });
 
 // UTILS
