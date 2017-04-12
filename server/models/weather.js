@@ -16,9 +16,9 @@ const Weather = {
       rp(options)
         .then((res) => {
           const location = {
-            lat: res.results.geometry.location.lat,
-            lng: results.geometry.location.lat,
-          }
+            lat: res.results[0].geometry.location.lat,
+            lng: res.results[0].geometry.location.lng,
+          };
           resolve(location);
         })
         .catch(err => reject(err));

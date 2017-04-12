@@ -37,7 +37,7 @@ var listOfLocations = [
     },
     {
       country: "Australia",
-      states: []
+      states: ["New South Wales", "Queensland", "South Australia", "Tasmania", "Victoria", "Western Australia"]
     },
     {
       country: "Austria",
@@ -725,7 +725,7 @@ var listOfLocations = [
     },
     {
       country: "United Kingdom",
-      states: []
+      states: ["London"]
     },
     {
       country: "United States",
