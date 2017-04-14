@@ -5,9 +5,12 @@ import Weather from '../models/weather';
 const router = express.Router();
 
 router.get('/conditions', (req, res) => {
+
+  const userSettings = JSON.parse(req.cookies.userSettings);
+
   const location = {
-    lat: JSON.parse(req.cookies.userSettings.weather.location.lat),
-    lng: JSON.parse(req.cookies.userSettings.weather.location.lng),
+    lat: userSettings.weather.location.lat,
+    lng: userSettings.weather.location.lng,
   };
 
   if (!location.lat || location.lat.length === 0 || location.lat === 'null') {
@@ -34,9 +37,12 @@ router.get('/conditions', (req, res) => {
 });
 
 router.get('/forecast', (req, res) => {
+
+  const userSettings = JSON.parse(req.cookies.userSettings);
+
   const location = {
-    lat: JSON.parse(req.cookies.userSettings.weather.location.lat),
-    lng: JSON.parse(req.cookies.userSettings.weather.location.lng),
+    lat: userSettings.weather.location.lat,
+    lng: userSettings.weather.location.lng,
   };
 
   if (!location.lat || location.lat.length === 0 || location.lat === 'null') {

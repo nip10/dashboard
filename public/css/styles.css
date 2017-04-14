@@ -1,15 +1,14 @@
 html {
-    background: #5f2c82;                                               /* fallback for old browsers */
-    background: -webkit-linear-gradient(to left, #de6161 , #2657eb); /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to left, #de6161 , #2657eb);         /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: #5f2c82;   
+    background: -webkit-linear-gradient(to left, #de6161 , #2657eb);
+    background: linear-gradient(to left, #de6161 , #2657eb);
+    /*background: linear-gradient(150deg,#53f 15%,#05d5ff 70%,#a6ffcb 94%);*/
+    /*background: radial-gradient(circle farthest-side at right bottom,#fefdfe 5%,#f8cdda 25%,#1d2b64 80%,#0e153a 98%);*/
 }
 
 body {
     background-color: transparent;
     font-family: 'Open Sans', sans-serif;
-    max-width: 100vw;
-    max-height: 100vh;
-    overflow: hidden;
 }
 
 ul {
@@ -19,6 +18,18 @@ ul {
 
 p {
     margin: 0;
+}
+
+.p1 {
+    color: white;
+    font-size: 1.5em;
+    padding-bottom: 15px;
+}
+
+.p2 {
+    color: white;
+    font-size: 1.2em;
+    padding-bottom: 3px;
 }
 
 hr {
@@ -78,9 +89,29 @@ input:placeholder-shown {
     padding-left: 8px;
 }
 
+.container-fluid {
+    height: calc(100vh - 20px);
+}
+
+.row-full {
+    height: 100%;
+}
+
+[class^=col-] {
+    height: 100%;
+}
+
+.module-2 {
+    position: relative;
+    width: 100%;
+    height: 50%;
+    overflow: auto;
+}
+
 /*HEADER*/
 .header {
     background-color: #333;
+    height: 20px;
 }
 
 .header p {
@@ -93,7 +124,7 @@ input:placeholder-shown {
 .weather {
     position: relative;
     width: 100%;
-    height: 450px;
+    height: 50%;
 }
 
 .weather-current {
@@ -203,7 +234,7 @@ input:placeholder-shown {
 .email {
     position: relative;
     width: 100%;
-    height: 450px;
+    height: 50%;
 }
 
 /*TV*/
@@ -211,7 +242,7 @@ input:placeholder-shown {
 .tv {
     position: relative;
     width: 100%;
-    height: 450px;
+    height: 50%;
 }
 
 .tv-list {
@@ -225,6 +256,9 @@ input:placeholder-shown {
     margin: 0 0 5px 0;
     color: #e4ccff;
     background: rgba(244, 244, 244, 0.1);
+    border-radius: 3px;
+    box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, 0.2),
+                0 1px 2px 0 rgba(0, 0, 0, 0.2);
 }
 
 .tv-list li.today {
@@ -270,7 +304,7 @@ input:placeholder-shown {
 .movies {
     position: relative;
     width: 100%;
-    height: 450px;
+    height: 50%;
 }
 
 .movies-container {
@@ -426,8 +460,7 @@ input:placeholder-shown {
     top: 60px;
     bottom: 0;
     background-color: #333;
-    border-radius: 2px;
-    box-shadow: 1px 1px;
+    border-radius: 3px;
 }
 
 .module-settings-left {
@@ -445,10 +478,14 @@ input:placeholder-shown {
 }
 
 .setting-input {
-    width: 75%;
-    padding-bottom: 15px;
+    width: 100%;
+    padding-bottom: 5px;
     margin: 0 auto;
 }
+
+/*.setting-input-first {
+    padding-top: 15px;
+}*/
 
 .setting-submit {
     position: absolute;
@@ -568,22 +605,49 @@ form:first-child {
     transform: translateX(-50%);
 }
 
+.weather-settings button.btn-update {
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+}
+
 .btn-update {
     width: 200px;
-    height: 70px;
 	background-color: #59B2E0;
 	outline: none;
 	color: #fff;
 	font-size: 14px;
-	height: auto;
 	font-weight: normal;
 	padding: 14px 0;
 	text-transform: uppercase;
 	border-color: #59B2E6;
+    white-space: normal;
 }
 
 .btn-update:hover,
 .btn-update:focus {
+	color: #fff;
+	background-color: #53A3CD;
+	border-color: #53A3CD;
+}
+
+.btn-search {
+    width: 100%;
+	background-color: #59B2E0;
+	outline: none;
+	color: #fff;
+	font-size: 14px;
+	font-weight: normal;
+	padding: 14px 0;
+	text-transform: uppercase;
+	border-color: #59B2E6;
+    white-space: normal;
+}
+
+.btn-search:hover,
+.btn-search:focus {
 	color: #fff;
 	background-color: #53A3CD;
 	border-color: #53A3CD;
@@ -626,3 +690,29 @@ label {
 /*p, input {
     color: white !important;
 }*/
+
+#map {
+    height: 200px;
+    overflow: hidden;
+    margin: 15px 5px 0 5px;
+}
+
+.white {
+    color: white;
+}
+
+.weather-settings .row {
+    margin: 0;
+    padding: 0;
+}
+
+.disp-flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.padding-both-5 {
+    padding-left: 5px;
+    padding-right: 5px;
+}
