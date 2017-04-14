@@ -39,7 +39,7 @@ const Weather = {
             temperature: baseObj.temp_c,
             humidity: baseObj.relative_humidity,
             description: baseObj.weather,
-            icon: (moment().format('hh') < 7 || moment().format('hh') > 20) ? baseObj.icon : `nt_${baseObj.icon}`,
+            icon: (moment().format('hh') > 7 && moment().format('hh') < 20) ? baseObj.icon : `nt_${baseObj.icon}`,
             localtime: baseObj.local_time_rfc822,
             lastupdate: baseObj.observation_time_rfc822,
           };

@@ -1,4 +1,19 @@
-// LOGIN FORM
+/*
+---------------------------
+---------- VARS -----------
+---------------------------
+*/
+
+// module settings overlay animation duration
+var animationTime = 1000;
+
+/*
+---------------------------
+----- LOGIN / SIGN-UP -----
+---------------------------
+*/
+
+// toggles login form
 $('#login-form-link').click(function(e) {
     e.preventDefault();
     $("#login-form").delay(100).fadeIn(100);
@@ -7,6 +22,7 @@ $('#login-form-link').click(function(e) {
     $(this).addClass('active');
 });
 
+// toggles signup form
 $('#signup-form-link').click(function(e) {
     e.preventDefault();
     $("#signup-form").delay(100).fadeIn(100);
@@ -15,7 +31,7 @@ $('#signup-form-link').click(function(e) {
     $(this).addClass('active');
 });
 
-// LOGIN AJAX
+// login form handler
 $('#login-form').submit(function(e) {
     e.preventDefault();
 
@@ -40,8 +56,7 @@ $('#login-form').submit(function(e) {
         });
 });
 
-
-// SIGN-UP AJAX
+// signup form handler
 $('#signup-form').submit(function(e) {
     e.preventDefault();
 
@@ -71,22 +86,38 @@ $('#signup-form').submit(function(e) {
         });
 });
 
-// Module Toggle Animations Settings
-var animationTime = 1000;
+/*
+---------------------------
+--------- MODULES ---------
+---------------------------
+*/
 
-// Left Modules
+// toggles left-side module settings overlay
 function toggleLeftModuleSettings(el, moduleName) {
     var moduleSettings = $(el).closest('div').children('.module-settings-left');
     if (!moduleSettings.is(':animated')) {
         if (moduleSettings.is(':visible')) {            
-            $(moduleSettings).animate({ left: "-=1000", right: "+=1000" }, animationTime, function() {$(this).hide(); idModule(moduleName);});
+            $(moduleSettings).animate({ left: "-=1000", right: "+=1000" }, animationTime, function() {
+                $(this).hide();
+                idModule(moduleName);
+            });
         } else {            
-            $(moduleSettings).show().animate({ left: "+=1000", right: "-=1000" }, animationTime, function() {idModule(moduleName);});
+            $(moduleSettings).show().animate({ left: "+=1000", right: "-=1000" }, animationTime, function() {
+                idModule(moduleName);
+                if(moduleName === 'weather') {
+                    var userSettings = Cookies.getJSON('userSettings');
+                    var userLocation = {
+                        lat: parseFloat(userSettings.weather.location.lat),
+                        lng: parseFloat(userSettings.weather.location.lng)
+                    }
+                    initMap(userLocation);
+                }
+            });
         }
     } 
 };
 
-// Right Modules
+// toggles right-side module settings overlay
 function toggleRightModuleSettings(el, moduleName) {
     var moduleSettings = $(el).closest('div').children('.module-settings-right');
     if (!moduleSettings.is(':animated')) {
@@ -98,7 +129,7 @@ function toggleRightModuleSettings(el, moduleName) {
     }
 };
 
-// Toggle module when we are editing that module's settings
+// toggles module (show/hide) when opening/closing settings overlay
 function idModule(moduleName) {
     if (moduleName === 'weather') $('.weather-current, .weather-forecast, .location').toggle();
     // if (moduleName === 'email')
@@ -106,8 +137,13 @@ function idModule(moduleName) {
     if (moduleName === 'movies') $('.movies-container').toggle();
 };
 
-// Tv Shows Module
-// Options > Downloads (checkboxes)
+/*
+---------------------------
+----------- TV ------------
+---------------------------
+*/
+
+// populates quality + source checkboxes from userSettings cookie
 function populateCheckboxes() {
     var userSettings = Cookies.getJSON('userSettings');
     var parentEl = $('.tv-settings-content-downloads');
@@ -121,7 +157,7 @@ function populateCheckboxes() {
     }
 };
 
-// Options > Subtitles (select)
+// populates language select from userSettings cookie
 function populateSelect() {
     var userSettings = Cookies.getJSON('userSettings');
     var parentEl = $('.tv-settings-content-subtitles');
@@ -129,8 +165,7 @@ function populateSelect() {
     $('.subtitles-language').val(language);
 }
 
-// Tv-shows settings
-// 'Manage'
+// toggles 'manage' tab
 $('.tv-settings-primary li:first-child').click(function(e) {
     if ($(this).hasClass('active')) return;
     $('.tv-settings-primary li:last-child').removeClass('active');
@@ -141,7 +176,7 @@ $('.tv-settings-primary li:first-child').click(function(e) {
     $('.tv-settings-content-showlist').show();
 });
 
-// 'Options'
+// toggles 'options' tab
 $('.tv-settings-primary li:last-child').click(function(e) {
     if ($(this).hasClass('active')) return;
     $('.tv-settings-content-showlist').hide();
@@ -156,7 +191,7 @@ $('.tv-settings-primary li:last-child').click(function(e) {
      }
 });
 
-// 'Subtitles'
+// toggles 'subtitles' tab
 $('.tv-settings-secondary li:first-child').click(function(e) {
     if ($(this).hasClass('active-sub')) return;
     $('.tv-settings-secondary li:last-child').removeClass('active-sub');
@@ -167,7 +202,7 @@ $('.tv-settings-secondary li:first-child').click(function(e) {
     $('.tv-settings-content-subtitles *').show();
 });
 
-// 'Download'
+// toggles 'download' tab
 $('.tv-settings-secondary li:last-child').click(function(e) {
     if ($(this).hasClass('active-sub')) return;
     $('.tv-settings-secondary li:first-child').removeClass('active-sub');
@@ -178,7 +213,7 @@ $('.tv-settings-secondary li:last-child').click(function(e) {
     $('.tv-settings-content-downloads *').show();
 });
 
-
+// deletes tvshow from userSettings (both json and cookies) and the list itself
 $('.tv-settings-delete').click(function(e) {
     var tvshowToRemove = $(this).parent().data("tvshow");
     var that = this;
@@ -197,9 +232,7 @@ $('.tv-settings-delete').click(function(e) {
     });
 });
 
-$('#tv-settings-language').click(function(e) {
-});
-
+// updates source and quality settings
 $('#tv-settings-source').click(function(e) {
     var quality = [];
     $(".tv-settings-content-downloads input:checkbox[name='quality']:checked").each(function(){
@@ -224,7 +257,20 @@ $('#tv-settings-source').click(function(e) {
     });
 });
 
-// AUTO-COMPLETE (weather location)
+/*
+---------------------------
+--------- WEATHER ---------
+---------------------------
+*/
+
+// populates weather location country + city inputs from userSettings cookie
+$('.weather .fa-cog').click(function(e) {
+    var userSettings = Cookies.getJSON('userSettings');
+    $("input[name='weather-country']").val(userSettings.weather.location.country);
+    $("input[name='weather-city']").val(userSettings.weather.location.city);
+});
+
+// autocomplete coutries input
 $("#autocomplete-countries").focus(function() {
     var listOfCountries = listOfLocations.map(function(el) {return el.country;});
     $("#autocomplete-countries").autocomplete({
@@ -232,6 +278,7 @@ $("#autocomplete-countries").focus(function() {
     });
 });
 
+// autocomplete cities input
 $("#autocomplete-cities").focus(function() {
   var selectedCountry = $("input[name=weather-country]").val();
   if (!selectedCountry || selectedCountry === '') {
@@ -245,39 +292,184 @@ $("#autocomplete-cities").focus(function() {
   });
 });
 
-$("#weather-settings").submit((e) => {
-    e.preventDefault();
+// update weather location (using coords from the map marker)
+// gets the city + name from geocoder, updates settings (json and cookies, server-side)
+$("#weather-settings-submit").click((e) => {
+    
+    var location = {
+        lat: marker.getPosition().lat(),
+        lng: marker.getPosition().lng(),
+    };
 
-    var country = $("input[name=weather-country]").val();
-    var city = $("input[name=weather-city]").val();
- 
-    // get coordinates from location
-    $.get(`http://maps.google.com/maps/api/geocode/json?address=${city}+${country}`)
+    geocoder.geocode({'location': location}, function(results, status) {
+        if (status === 'OK') {
+            if (results[1]) {
+                var components = results[0].address_components;
+                var info = [];
+                for (var i=0 ; i < components.length ; i++) {
+                    if(components[i].types[0]=="country") location.country = components[i].long_name;
+                    if(components[i].types[0]=="locality") location.city = components[i].long_name;
+                }
+                console.log(location);
+                changeSettings(location);
+            } else {
+            console.log('No results found');
+            }
+        } else {
+            console.log('Geocoder failed due to: ' + status);
+        }
+    });
+
+    function changeSettings(location) {
+        $.ajax({
+        url: 'http://localhost:3000/api/user/settings',
+        type: 'PUT',
+        data: {settingName: ['weather.location'], settingData: [location]},
+        })
         .fail(function(jqXHR, textStatus, errorThrown) {
             logAjaxFail(jqXHR, textStatus, errorThrown);
         })
         .done(function(data, textStatus, jqXHR) {
             logAjaxDone(data, textStatus, jqXHR);
-            var location = {
-                lat: data.results[0].geometry.location.lat,
-                lng: data.results[0].geometry.location.lng
-            };
-            // change settings
-            $.ajax({
-                url: 'http://localhost:3000/api/user/settings',
-                type: 'PUT',
-                data: {settingName: ['weather.location'], settingData: [location]},
-            })
-            .fail(function(jqXHR, textStatus, errorThrown) {
-                logAjaxFail(jqXHR, textStatus, errorThrown);
-            })
-            .done(function(data, textStatus, jqXHR) {
-                logAjaxDone(data, textStatus, jqXHR);        
-            });
-        })
+            // update weather conditions for new location
+            $.get('http://localhost:3000/api/weather/conditions')
+                .fail(function(jqXHR, textStatus, errorThrown) {
+                    logAjaxFail(jqXHR, textStatus, errorThrown);
+                })
+                .done(function(data, textStatus, jqXHR) {
+                    logAjaxDone(data, textStatus, jqXHR);
+                    updateWeatherConditions(data);
+                });
+            // update weather forecast for new location
+            $.get('http://localhost:3000/api/weather/forecast')
+                .fail(function(jqXHR, textStatus, errorThrown) {
+                    logAjaxFail(jqXHR, textStatus, errorThrown);
+                })
+                .done(function(data, textStatus, jqXHR) {
+                    logAjaxDone(data, textStatus, jqXHR);
+                    updateWeatherForecast(data);
+                });
+        
+        });
+    }
 });
 
-// UTILS
+
+// geolocation api and updates marker in map
+$('#weather-autolocation').click(function(e) {
+    if (!navigator.geolocation) {
+        return console.log('Geolocation is not supported by your browser.');
+    }
+    navigator.geolocation.getCurrentPosition((position) => {
+        var latlng = {
+            lat: parseFloat(position.coords.latitude), 
+            lng: parseFloat(position.coords.longitude)
+        };      
+        map.panTo(latlng);
+        marker.setPosition(latlng);
+    }, () => {
+        console.log('Unable to get your location');
+        // append error to div
+    });
+});
+
+// displays location on the map
+$('#weather-search-location').click(function(e) {
+    geocodeAddress(geocoder);
+});
+
+// initialize map
+// note: map, marker and geocoder are set as global variables
+function initMap(location) {
+    var userSettings = Cookies.getJSON('userSettings');
+    var userLocation = {
+        lat: parseFloat(userSettings.weather.location.lat),
+        lng: parseFloat(userSettings.weather.location.lng)
+    }
+
+    var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 12,
+        center: location,
+        zoomControl: true,
+        mapTypeControl: false,
+        scaleControl: false,
+        streetViewControl: false,
+        rotateControl: false,
+        fullscreenControl: false
+    });
+
+    var geocoder = new google.maps.Geocoder;
+
+    var marker = new google.maps.Marker({
+        position: userLocation,
+        map: map,
+        draggable: true,
+        title: 'Drag me!'
+    });
+
+    google.maps.event.addListener(marker, 'position_changed', function() {
+        var position = {
+            lat: this.getPosition().lat(),
+            lng: this.getPosition().lng()
+        };
+    });
+
+    google.maps.event.addDomListener(window, 'resize', function() {
+        var center = map.getCenter();
+        google.maps.event.trigger(map, 'resize');
+        map.setCenter(center);
+    });
+
+    window.map = map;
+    window.marker = marker;
+    window.geocoder = geocoder;
+}
+
+// converts city+country in coords and updates marker in map
+function geocodeAddress(geocoder) {
+    var country = $("input[name='weather-country']").val();
+    var city = $("input[name='weather-city']").val();
+    var location = city.concat(', ', country);
+    geocoder.geocode({'address': location}, function(results, status) {
+        if (status === 'OK') {
+            map.panTo(results[0].geometry.location);
+            marker.setPosition(results[0].geometry.location);
+        } else {
+            console.log('Geocode was not successful for the following reason: ' + status);
+            // append error to div
+        }
+    });
+}
+
+// updates weather conditions (and location) after changing location
+function updateWeatherConditions(conditions) {
+    // conditions
+    $('.weather-degree').text(conditions.temperature + " ºC");
+    $('.weather-description').text(conditions.description);
+    $('weather-current > img').attr("src","./images/weather/" + conditions.icon + ".svg");
+    // missing nt_
+    $('.location').text(conditions.location);
+}
+
+// updates weather forecast after changing location
+function updateWeatherForecast(forecast) {
+    // forecast
+    for(var i = 0; i < 4; i++) {
+        var el = $('.weather-forecast li[data-day="' + i + '"]');
+        $(el).find('.hi').text(forecast.forecastday[i].high.celsius + 'ºC');
+        $(el).find('.lo').text(forecast.forecastday[i].low.celsius + 'ºC');
+        $(el).find('img').attr("src","./images/weather/" + forecast.forecastday[i].icon + ".svg");
+        $(el).find('.cond-text').text(forecast.forecastday[i].conditions);
+        $(el).find('.hura').text(forecast.forecastday[i].avehumidity + ' % /' + forecast.forecastday[i].qpf_allday.mm + ' mm');
+    }
+}
+
+/*
+---------------------------
+---------- UTILS ----------
+---------------------------
+*/
+
 // Logs failed ajax requests
 var logAjaxFail = function(jqXHR, textStatus, errorThrown) {
     console.error('Ajax request failed !');
