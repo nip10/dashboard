@@ -105,7 +105,22 @@ input:placeholder-shown {
     position: relative;
     width: 100%;
     height: 50%;
-    overflow: auto;
+    overflow: hidden;
+}
+
+.module-header {
+    height: 50px;
+}
+
+.module-content {
+    height: calc(100% - 70px);
+    /*70px because 50px from header and 20px from h2 margin-top*/
+}
+
+.module-content-flex {
+    height: calc(100% - 70px);
+    display: flex;
+    justify-content: center;
 }
 
 /*HEADER*/
@@ -129,8 +144,8 @@ input:placeholder-shown {
 
 .weather-current {
     width: 100%;
-    height: 190px;
-    padding: 20px;
+    height: 200px;
+    padding: 40px 20px 20px 20px;
 }
 
 .weather-current img {
@@ -157,7 +172,7 @@ input:placeholder-shown {
 
 /*FORECAST*/
 .weather-forecast {
-    margin-top: 30px;
+    margin-top: 60px;
 }
 
 .weather-forecast ul {
@@ -247,7 +262,7 @@ input:placeholder-shown {
 
 .tv-list {
     float: left;
-    padding: 10px 0 0 0;
+    padding: 40px 0 0 0;
     margin: 0 10px 0 0;
 }
 
@@ -310,7 +325,7 @@ input:placeholder-shown {
 .movies-container {
     width: 100%;
     text-align: center;
-    margin-top: 20px;
+    align-self: center;
 }
 
 .movies-container img {

@@ -1,7 +1,6 @@
 require('dotenv').config();
 
 import rp from 'request-promise';
-import Promise from 'bluebird';
 import moment from 'moment';
 
 const Weather = {
@@ -12,17 +11,15 @@ const Weather = {
       uri: `http://maps.google.com/maps/api/geocode/json?address=${city}+${country}`,
       json: true,
     };
-    return new Promise((resolve, reject) => {
-      rp(options)
+    return rp(options)
         .then((res) => {
           const location = {
             lat: res.results[0].geometry.location.lat,
             lng: res.results[0].geometry.location.lng,
           };
-          resolve(location);
+          return location;
         })
-        .catch(err => reject(err));
-    });
+        .catch(err => console.log(err));
   },
 
   getConditions(lat, lng) {
@@ -30,8 +27,7 @@ const Weather = {
       uri: `http://api.wunderground.com/api/${this.apiKey}/conditions/q/${lat},${lng}.json`,
       json: true,
     };
-    return new Promise((resolve, reject) => {
-      rp(options)
+    return rp(options)
         .then((res) => {
           const baseObj = res.current_observation;
           const conditions = {
@@ -39,14 +35,13 @@ const Weather = {
             temperature: baseObj.temp_c,
             humidity: baseObj.relative_humidity,
             description: baseObj.weather,
-            icon: (moment().format('hh') > 7 && moment().format('hh') < 20) ? baseObj.icon : `nt_${baseObj.icon}`,
+            icon: (moment().format('HH') > 7 && moment().format('HH') < 20) ? baseObj.icon : `nt_${baseObj.icon}`,
             localtime: baseObj.local_time_rfc822,
             lastupdate: baseObj.observation_time_rfc822,
           };
-          resolve(conditions);
+          return conditions;
         })
-        .catch(err => reject(err));
-    });
+        .catch(err => console.log(err));
   },
 
   getForecast(lat, lng) {
@@ -54,11 +49,9 @@ const Weather = {
       uri: `http://api.wunderground.com/api/${this.apiKey}/forecast/q/${lat},${lng}.json`,
       json: true,
     };
-    return new Promise((resolve, reject) => {
-      rp(options)
-        .then(res => resolve(res.forecast.simpleforecast))
-        .catch(err => reject(err));
-    });
+    return rp(options)
+      .then(res => res.forecast.simpleforecast)
+      .catch(err => console.log(err));
   },
 };
 

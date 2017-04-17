@@ -94,14 +94,15 @@ $('#signup-form').submit(function(e) {
 
 // toggles left-side module settings overlay
 function toggleLeftModuleSettings(el, moduleName) {
-    var moduleSettings = $(el).closest('div').children('.module-settings-left');
+    var moduleSettings = $(el).closest('div').siblings('[class^="module-content"]').children('.module-settings');
+    // class 'attr contains' is a temporary hack to select both module-content and module-content-flex
     if (!moduleSettings.is(':animated')) {
-        if (moduleSettings.is(':visible')) {            
+        if (moduleSettings.is(':visible')) {
             $(moduleSettings).animate({ left: "-=1000", right: "+=1000" }, animationTime, function() {
                 $(this).hide();
                 idModule(moduleName);
             });
-        } else {            
+        } else {
             $(moduleSettings).show().animate({ left: "+=1000", right: "-=1000" }, animationTime, function() {
                 idModule(moduleName);
                 if(moduleName === 'weather') {
@@ -119,7 +120,8 @@ function toggleLeftModuleSettings(el, moduleName) {
 
 // toggles right-side module settings overlay
 function toggleRightModuleSettings(el, moduleName) {
-    var moduleSettings = $(el).closest('div').children('.module-settings-right');
+    var moduleSettings = $(el).closest('div').siblings('[class^="module-content"]').children('.module-settings');
+    // class 'attr contains' is a temporary hack to select both module-content and module-content-flex
     if (!moduleSettings.is(':animated')) {
         if (moduleSettings.is(':visible')) {
             $(moduleSettings).animate({ left: "+=1000", right: "-=1000" }, animationTime, function() {$(this).hide(); idModule(moduleName);});
@@ -338,6 +340,7 @@ $("#weather-settings-submit").click((e) => {
                 })
                 .done(function(data, textStatus, jqXHR) {
                     logAjaxDone(data, textStatus, jqXHR);
+                    data.geolocation = location;
                     updateWeatherConditions(data);
                 });
             // update weather forecast for new location
@@ -448,13 +451,15 @@ function updateWeatherConditions(conditions) {
     $('.weather-description').text(conditions.description);
     $('weather-current > img').attr("src","./images/weather/" + conditions.icon + ".svg");
     // missing nt_
-    $('.location').text(conditions.location);
+    // avoid using momentjs if possible
+    // $('.location').text(conditions.location);
+    $('.location').text(conditions.geolocation.city + ', ' + conditions.geolocation.country);
 }
 
 // updates weather forecast after changing location
 function updateWeatherForecast(forecast) {
     // forecast
-    for(var i = 0; i < 4; i++) {
+    for (var i = 0; i < 4; i++) {
         var el = $('.weather-forecast li[data-day="' + i + '"]');
         $(el).find('.hi').text(forecast.forecastday[i].high.celsius + 'ºC');
         $(el).find('.lo').text(forecast.forecastday[i].low.celsius + 'ºC');
