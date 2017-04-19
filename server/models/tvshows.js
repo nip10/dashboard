@@ -1,8 +1,6 @@
 require('dotenv').config();
 
 import moment from 'moment';
-import Promise from 'bluebird';
-
 import knex from '../db/connection';
 
 // const startInterval = moment().subtract(2, 'days').format('YYYY-MM-DD');
@@ -12,8 +10,7 @@ const endInterval = '2017-02-06';
 
 const TvShows = {
   getTvShows(tvshows) {
-    return new Promise((resolve, reject) => {
-      knex('tvshows')
+    return knex('tvshows')
         .whereIn('show', tvshows)
         .whereBetween('airdate', [startInterval, endInterval])
         .orderBy('airdate', 'asc')
@@ -27,12 +24,12 @@ const TvShows = {
             acc.obj[`day${acc.i}`] = (acc.obj[`day${acc.i}`] || []).concat(`${show} S${(`0${season}`).slice(-2)}E${(`0${episode}`).slice(-2)}`);
             return acc;
           }, { i: 0, obj: {} }).obj;
-          resolve(tvShowsArray);
+          return tvShowsArray;
         })
         .catch((err) => {
-          reject('Error fetching tvshows');
+          // reject('Error fetching tvshows');
+          console.log(err);
         });
-    });
   },
 };
 

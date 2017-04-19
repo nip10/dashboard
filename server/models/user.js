@@ -84,7 +84,7 @@ const User = {
     return new Promise((resolve, reject) => {
       this.getUserSettingsFromFile(userID)
         .then((userSettings) => {
-          for (let i = 0; i < settingName.length; i++) {
+          for (let i = 0; i < settingName.length; i += 1) {
             _.set(userSettings, settingName[i], settingData[i]);
           }
           return this.updateUserSettingsFile(userID, userSettings);
