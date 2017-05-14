@@ -1,10 +1,12 @@
 import express from 'express';
 
+import Helpers from '../auth/_helpers';
+
 import Weather from '../models/weather';
 
 const router = express.Router();
 
-router.get('/conditions', (req, res) => {
+router.get('/conditions', Helpers.isLoggedIn, (req, res) => {
 
   const userSettings = JSON.parse(req.cookies.userSettings);
 
@@ -36,7 +38,7 @@ router.get('/conditions', (req, res) => {
   }
 });
 
-router.get('/forecast', (req, res) => {
+router.get('/forecast', Helpers.isLoggedIn, (req, res) => {
 
   const userSettings = JSON.parse(req.cookies.userSettings);
 
