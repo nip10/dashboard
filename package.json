@@ -4,10 +4,13 @@
   "description": "Dashboard webapp",
   "main": "server/server.js",
   "scripts": {
-    "run": "node server/server.js --exec babel-node",
-    "start": "nodemon server/server.js --exec babel-node",
-    "start:remote": "set NODE_ENV=production&&nodemon server/server.js --exec babel-node",
-    "lint": "eslint ."
+    "start": "node server/server.js --exec babel-node",
+    "start:remote": "set NODE_ENV=production&&node server/server.js --exec babel-node",
+    "lint": "eslint .",
+    "build:sass": "node-sass --include-path scss public/scss/main.scss public/css/main.css",
+    "watch": "npm run watch:sass && npm run watch:server",
+    "watch:server": "cls && nodemon server/server.js --exec babel-node",
+    "watch:sass": "cls && node-sass --watch --include-path scss public/scss/main.scss public/css/main.css"
   },
   "repository": {
     "type": "git",
@@ -50,6 +53,7 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^4.0.0",
     "eslint-plugin-react": "^6.9.0",
+    "node-sass": "^4.5.2",
     "nodemon": "^1.11.0"
   }
 }
