@@ -1,0 +1,27 @@
+.tv {
+    padding-top: 4 rem;
+    margin-right: 1 rem;
+    &__listleft {
+        width: 20%;
+    }
+    &__listright {
+        width: 80%;
+    }
+    li {
+        height: 20%;
+        margin-bottom: 0.5 rem;
+        color: #e4ccff; // TODO
+        background: rgba(244, 244, 244, 0.1); // TODO
+        border-radius: 3px; // TODO
+        box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.2); // TODO
+    }
+        &-left {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        &-today {
+            margin: 10 rem 0; // TODO
+            border: 1px solid black; // TODO
+        }
+}
