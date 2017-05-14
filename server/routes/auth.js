@@ -22,15 +22,15 @@ router.post('/login', (req, res, next) => {
   req.body.email = validator.normalizeEmail(email);
 
   passport.authenticate('local', (err, user) => {
-    if (err) { return res.status(500).json({ error: 'Error in passport authenticate' }); }
-    if (!user) { return res.status(404).json({ error: 'User not found' }); }
+    if (err) return res.status(500).json({ error: 'Error in passport authenticate' });
+    if (!user) return res.status(404).json({ error: 'User not found' });
     if (user) {
       console.log(chalk.blue('User %s connected'), user.id);
       User.getUserSettingsFromFile(user.id)
         .then(userSettings => res.cookie('userSettings', JSON.stringify(userSettings)))
         .then(() => {
           req.logIn(user, (err) => {
-            if (err) { return res.status(500).json({ error: 'Error in passport logIn' }); }
+            if (err) return res.status(500).json({ error: 'Error in passport logIn' });
             return res.status(200).json({ status: 'success' });
           });
         })
@@ -49,6 +49,13 @@ router.post('/signup', (req, res, next) =>
     }))
     .then(user => User.createUserSettings(user, req.acceptsLanguages()[0]))
     .then(() => res.status(200).json({ status: 'success' }))
-    .catch(err => res.status(500).json({ error: err })));
+    .catch(err => res.status(500).json({ error: err }))
+);
+
+router.get('/logout', (req, res) => {
+  if (!req.user) return res.redirect('/');
+  req.logout();
+  res.redirect('/');
+});
 
 module.exports = router;
