@@ -2,6 +2,7 @@ import express from 'express';
 import Promise from 'bluebird';
 
 import Utils from '../utils/utils';
+import Helpers from '../auth/_helpers'
 
 import TvShows from '../models/tvshows';
 import Movies from '../models/movies';
@@ -15,7 +16,7 @@ router.get('/', (req, res) => {
   });
 });
 
-router.get('/dashboard', (req, res) => {
+router.get('/dashboard', Helpers.isLoggedIn, (req, res) => {
   const userSettings = JSON.parse(req.cookies.userSettings);
   if (!userSettings || userSettings.lenght === 0 || userSettings === 'null') {
     // try to read user settings from file (more on this on tasks.todo)

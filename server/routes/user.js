@@ -1,11 +1,13 @@
 import express from 'express';
 
+import Helpers from '../auth/_helpers';
+
 import User from '../models/user';
 
 const router = express.Router();
 
 // Edit setting (single-valued keys or multi-value keys)
-router.put('/settings', (req, res) => {
+router.put('/settings', Helpers.isLoggedIn, (req, res) => {
   const userID = req.user;
   const settingName = req.body.settingName;
   const settingData = req.body.settingData;
@@ -20,7 +22,7 @@ router.put('/settings', (req, res) => {
 });
 
 // Add value to setting (multi-value keys)
-router.patch('/settings', (req, res) => {
+router.patch('/settings', Helpers.isLoggedIn, (req, res) => {
   const userID = req.user;
   const settingName = req.body.settingName;
   const settingData = req.body.settingData;
@@ -35,7 +37,7 @@ router.patch('/settings', (req, res) => {
 });
 
 // Remove value from setting (multi-value keys)
-router.delete('/settings', (req, res) => {
+router.delete('/settings', Helpers.isLoggedIn, (req, res) => {
   const userID = req.user;
   const settingName = req.body.settingName;
   const settingData = req.body.settingData;
