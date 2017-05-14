@@ -15,7 +15,7 @@ passport.use(new LocalStrategy(options, (email, password, done) => {
   // check to see if the email exists
   knex('users').where({ email }).first()
   .then((user) => {
-    if (!user) return done(null, false);
+    if (!user) return done(null, false); // return done(err)
     // check if password's match
     if (!authHelpers.comparePass(password, user.password)) {
       return done(null, false);
