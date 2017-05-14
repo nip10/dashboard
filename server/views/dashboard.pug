@@ -3,14 +3,14 @@ extends layout/base
 block content
     .container-fluid
         .row.header
-            .col-md-3(name='left')
+            .col-lg-3(name='left')
                 p Something goes here
-            .col-md-6(name='center')
+            .col-lg-6(name='center')
                 p Something goes here
-            .col-md-3(name='right')
+            .col-lg-3(name='right')
                 p Welcome, #{user.username} !
         .row.row-full
-            .col-md-3(name='left')
+            .col-lg-3(name='left')
                 .weather.module-2
                         .module-header
                             h2
@@ -87,10 +87,9 @@ block content
                                     .row
                                         .col-sm-6.col-sm-offset-3
                                             input.form-control.btn.btn-login(type='submit', name='login-submit', value='Log In')
-            .col-md-6(name='center')
+            .col-lg-6(name='center')
                 p.welcome Welcome
-                
-            .col-md-3(name='right')
+            .col-lg-3(name='right')
                 .tv.module-2
                     .module-header
                         h2
