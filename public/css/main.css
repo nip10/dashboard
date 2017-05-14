@@ -6053,5 +6053,51 @@ button.close {
   .hidden-print {
     display: none !important; } }
 
+.tv ul {
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  padding-top: 1rem;
+  margin-right: 0.5rem; }
+
+.tv li {
+  height: 20%;
+  margin-bottom: 0.5rem;
+  border-radius: 0.3rem;
+  box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.2); }
+  .tv li.today {
+    margin: 1rem 0;
+    border: 1px solid black; }
+
+.tv__listleft {
+  width: 20%; }
+
+.tv__listright {
+  width: 80%; }
+
+.movies img {
+  display: block;
+  width: 50%;
+  height: 50%;
+  padding-top: 1rem; }
+  .movies img:first-child {
+    margin-right: 0.5rem; }
+
 .foo {
   color: blue; }
+
+.module {
+  position: relative;
+  width: 100%;
+  height: 50%; }
+  .module__header {
+    height: 5rem; }
+  .module__content {
+    display: flex;
+    justify-content: center;
+    height: calc(100% - 5rem); }
+
+body {
+  max-height: 100vh;
+  overflow-y: hidden; }

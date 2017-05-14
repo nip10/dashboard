@@ -5,3 +5,8 @@
 @import 'base/global';
 @import 'component/global';
 @import 'layout/global';
+
+body {
+    max-height: 100vh;
+    overflow-y: hidden; // doesnt allow the page to extend vertically (remove after everything is done)
+}
