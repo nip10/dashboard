@@ -1,0 +1,12 @@
+.movies {
+    img {
+        display: block;
+        width: 50%;
+        height: 50%;
+        padding-top: 1rem;
+        
+        &:first-child {
+            margin-right: 0.5rem;
+        }
+    }
+}
