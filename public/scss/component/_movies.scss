@@ -1,9 +1,10 @@
 .movies {
     img {
         display: block;
-        width: 50%;
-        height: 50%;
-        padding-top: 1rem;
+        width: calc(50% - 0.25rem); // 0.25rem is half of the margin
+        height: auto;
+        max-width: 230px;
+        max-height: 345px;
         
         &:first-child {
             margin-right: 0.5rem;
