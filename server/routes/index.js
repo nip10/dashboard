@@ -1,8 +1,9 @@
 import express from 'express';
 import Promise from 'bluebird';
+import rp from 'request-promise';
 
 import Utils from '../utils/utils';
-import Helpers from '../auth/_helpers'
+import Helpers from '../auth/_helpers';
 
 import TvShows from '../models/tvshows';
 import Movies from '../models/movies';
@@ -17,12 +18,21 @@ router.get('/', (req, res) => {
 });
 
 router.get('/dashboard', Helpers.isLoggedIn, (req, res) => {
-  const userSettings = JSON.parse(req.cookies.userSettings);
+  const userID = req.user;
+  const userSettings = {};
+  const options = {
+    uri: '/api/user/settings',
+    json: true,
+  };
+  rp(options)
+    .then(settings => console.log(settings))
+    .catch(err => console.log(err));
+
+  // this should be a server error
   if (!userSettings || userSettings.lenght === 0 || userSettings === 'null') {
-    // try to read user settings from file (more on this on tasks.todo)
-    // refactor this because i dont want to just send json
-    // or catch the error on the front-end by looking up the 'status' var
-    return res.status(400).send({ status: 'User settings not found. Please login again.' });
+    return res.render('error', {
+      message: 'Unable to get user settings.',
+    });
   }
 
   const promises = [
@@ -63,7 +73,6 @@ router.get('/dashboard', Helpers.isLoggedIn, (req, res) => {
     .catch((err) => {
       console.log(err);
       // this means that (probably) the server crashed, render the error page with an alert
-      // eg: 'Server is down. Please try again later.'
     });
 });
 
