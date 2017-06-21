@@ -1,9 +1,13 @@
 exports.up = (knex, Promise) => knex.schema.createTableIfNotExists('users', (table) => {
-  table.increments();
+  table.increments('id');
+  table.string('username').unique().notNullable();
   table.string('email').unique().notNullable();
   table.string('password').notNullable();
   table.boolean('admin').notNullable().defaultTo(false);
-  table.timestamp('created_at').notNullable().defaultTo(knex.raw('now()'));
+  table.boolean('isnew').notNullable().defaultTo(true);
+  table.string('language').notNullable();
+  table.timestamp('createdAt').notNullable().defaultTo(knex.raw('now()'));
+  table.timestamp('updatedAt').defaultTo(knex.raw('now()'));
 });
 
 exports.down = (knex, Promise) => knex.schema.dropTable('users');
