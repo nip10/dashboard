@@ -27,7 +27,6 @@ const TvShows = {
           return tvShowsArray;
         })
         .catch((err) => {
-          // reject('Error fetching tvshows');
           console.log(err);
         });
   },
