@@ -1,5 +1,7 @@
 exports.up = (knex, Promise) => knex.schema.createTableIfNotExists('weather', (table) => {
   table.increments('id');
+  table.string('lat').notNullable();
+  table.string('lng').notNullable();
   table.string('country').notNullable();
   table.string('city').notNullable();
   table.enu('unit', ['c', 'f']).notNullable();
