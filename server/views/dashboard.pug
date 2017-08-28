@@ -11,7 +11,7 @@ block content
                 p Welcome, #{user.username} !
         .row.row-full
             .col-lg-3.col-md-3(name='left')
-                //- .weather.module-2
+                .weather.module-2
                         .module-header
                             h2
                                 i.fa.fa-sun-o
@@ -66,7 +66,7 @@ block content
                                 div#map
                                 button.btn.btn-update(type='button', name='weather-settings-submit', id='weather-settings-submit') Update
 
-                //- .email.module-2
+                .email.module-2
                     h2
                         i.fa.fa-envelope-o
                         |  Email
@@ -118,7 +118,7 @@ block content
                                             p No TvShows today !
                                         else
                                             each val in tv.list[day]
-                                                    p= val
+                                                p= val
                         //- .module-settings.module-settings-right.tv-settings
                             ul.tv-settings-primary
                                 li.active Manage
