@@ -1,0 +1,30 @@
+// Colors
+$white: #fff;
+$ablack: #333;
+$blue-dark: #2980b9;
+$blue-light: #3498db;
+$purple-dark: #8e44ad;
+$purple-light: #9b59b6;
+
+
+// Font-size, Padding, Margin and Border
+$font-size-extralarge:    ceil(($font-size-base * 1.7)) !default; // ~24px
+$font-size-medium:        ceil(($font-size-base * 1.14)) !default; // ~16px
+
+$padding-extralarge-vertical:    12px;
+$padding-extralarge-horizontal:  60px;
+
+$border-radius-extralarge:  9px;
+
+// Buttons
+$button-font-weight: normal;
+
+$button-default-color: $white;
+
+$button-primary-color: $white;
+$button-primary-bg: $blue-dark;
+$button-primary-border: darken($button-primary-bg, 5%);
+
+$button-secondary-color: $white;
+$button-secondary-bg: $purple-dark;
+$button-secondary-border: darken($button-secondary-bg, 5%);

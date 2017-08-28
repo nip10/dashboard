@@ -1,0 +1,46 @@
+@import 'vendor/normalize';
+@include normalize();
+@import 'vendor/bootstrap';
+
+@import 'base/global';
+@import 'component/global';
+@import 'layout/global';
+
+body {
+    height: 100vh;
+    width: 100vw;
+    background-color: transparent;
+    font-family: 'Open Sans', sans-serif;
+    overflow-y: hidden; // doesnt allow the page to extend vertically (remove after everything is done)
+}
+
+html {
+    height: 100vh;
+    width: 100vw;
+    background: #5f2c82;   
+    background: -webkit-linear-gradient(to left, #de6161 , #2657eb);
+    background: linear-gradient(to left, #de6161 , #2657eb);
+    // background: linear-gradient(150deg,#53f 15%,#05d5ff 70%,#a6ffcb 94%);
+    // background: radial-gradient(circle farthest-side at right bottom,#fefdfe 5%,#f8cdda 25%,#1d2b64 80%,#0e153a 98%);
+}
+
+// Needed for full height
+.container-fluid {
+    height: 100%;
+    .row-full {
+        height: 100%;
+    }
+    [class^=col-] {
+    height: 100%;
+    }
+}
+
+.full-height {
+    height: 100%;
+}
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}

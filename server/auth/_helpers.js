@@ -8,19 +8,19 @@ function comparePass(userPassword, databasePassword) {
 
 function createUser(req, res) {
   return handleErrors(req)
-  .then(() => {
-    const salt = bcrypt.genSaltSync();
-    const hash = bcrypt.hashSync(req.body.password, salt);
-    return knex('users')
-      .insert({
-        email: req.body.email,
-        password: hash,
-      })
-      .returning('*');
-  })
-  .catch((err) => {
-    res.status(400).json({ status: err.message });
-  });
+    .then(() => {
+      const salt = bcrypt.genSaltSync();
+      const hash = bcrypt.hashSync(req.body.password, salt);
+      return knex('users')
+        .insert({
+          email: req.body.email,
+          password: hash,
+        })
+        .returning('*');
+    })
+    .catch((err) => {
+      res.status(400).json({ status: err.message });
+    });
 }
 
 function loginRequired(req, res, next) {
