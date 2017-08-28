@@ -47,7 +47,7 @@ $('#login-form').submit(function(e) {
             const error = jqXHR.responseJSON.error;
             if (error) {
                 $('.alert-login').show().children().show();
-                $('.alert-login').append('<p>' + error + '</p>');
+                $('.alert-login').append('<p> ' + error + '</p>');
             }
         })
         .done(function(data, textStatus, jqXHR) {
@@ -72,7 +72,7 @@ $('#signup-form').submit(function(e) {
             const error = jqXHR.responseJSON.error;
             if (error) {
                 $('.alert-login').show().children().show();
-                $('.alert-login').append('<p>' + error + '</p>');
+                $('.alert-login').append('<p> ' + error + '</p>');
             }
         })
         .done(function(data, textStatus, jqXHR) {
