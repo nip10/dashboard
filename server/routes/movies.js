@@ -2,7 +2,7 @@ import express from 'express';
 
 import Helpers from '../auth/_helpers';
 
-import Movies from '../models/movies';
+import Movies from '../controllers/movies';
 
 const router = express.Router();
 
