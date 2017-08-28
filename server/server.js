@@ -12,6 +12,9 @@ server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 
+process.on('uncaughtException', err => console.error('uncaught exception:', err));
+process.on('unhandledRejection', error => console.error('unhandled rejection:', error));
+
 function normalizePort(val) {
   const port = parseInt(val, 10);
   if (isNaN(port)) {

@@ -1,0 +1,26 @@
+.panel-heading {
+    a.btn {
+        font-size: $font-size-medium;
+    }
+}
+
+.btn {
+    @include uppercase();
+    &-tabs {
+        padding: 24px 0px;
+        @include button-size($padding-extralarge-vertical, $padding-extralarge-horizontal, $font-size-large, $line-height-large, $border-radius-large);
+        @include button-variant($button-secondary-color, $button-secondary-bg, $button-secondary-border);
+    }
+    &-submit {
+        height: auto;
+        @include button-size($padding-extralarge-vertical, $padding-extralarge-horizontal, $font-size-large, $line-height-large, $border-radius-large);
+        @include button-variant($button-primary-color, $button-primary-bg, $button-primary-border);
+    }
+}
+
+.alert {
+    display: none;
+    p {
+        display: inline-block;
+    }
+}

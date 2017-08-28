@@ -2,15 +2,15 @@ extends layout/base
 
 block content
     .container-fluid
-        .row.header
-            .col-lg-3(name='left')
+        header.row
+            .col-lg-3.col-md-3(name='left')
                 p Something goes here
-            .col-lg-6(name='center')
+            .col-lg-6.col-md-6(name='center')
                 p Something goes here
-            .col-lg-3(name='right')
+            .col-lg-3.col-md-3(name='right')
                 p Welcome, #{user.username} !
         .row.row-full
-            .col-lg-3(name='left')
+            .col-lg-3.col-md-3(name='left')
                 .weather.module-2
                         .module-header
                             h2
@@ -87,18 +87,18 @@ block content
                                     .row
                                         .col-sm-6.col-sm-offset-3
                                             input.form-control.btn.btn-login(type='submit', name='login-submit', value='Log In')
-            .col-lg-6(name='center')
+            .col-lg-6.col-md-6(name='center')
                 p.welcome Welcome
-            .col-lg-3(name='right')
-                .tv.module-2
-                    .module-header
+            .col-lg-3.col-md-3(name='right')
+                .module.tv
+                    .module__header
                         h2
                             i.fa.fa-television
                             |  TV Shows
                             i.fa.fa-cog.pull-right(onclick='toggleRightModuleSettings(this, "tv")')
                         hr
-                    .module-content-flex
-                        ul.tv-list.tv-list-left
+                    .module__content
+                        ul.tv__listleft
                             each val in [0, 1, 2, 3, 4]
                                 if val == 2
                                     li.today
@@ -107,7 +107,7 @@ block content
                                     li
                                         p= tv.days[val]
 
-                        ul.tv-list.tv-list-right
+                        ul.tv__listright
                             if errors.tvList
                                 p Error fetching TV Shows. Please try later.
                             else
@@ -118,8 +118,8 @@ block content
                                             p No TvShows today !
                                         else
                                             each val in tv.list[day]
-                                                    p= val
-                        .module-settings.module-settings-right.tv-settings
+                                                p= val
+                        //- .module-settings.module-settings-right.tv-settings
                             ul.tv-settings-primary
                                 li.active Manage
                                 span
@@ -166,23 +166,24 @@ block content
                                         li(data-tvshow=val)= val
                                             span.tv-settings-delete.pull-right -
 
-                .movies.module-2
-                    .module-header
+                .module.movies
+                    .module__header
                         h2
                             i.fa.fa-film
                             |  Movies
                             i.fa.fa-cog.pull-right(onclick='toggleRightModuleSettings(this, "movies")')
                         hr
-                    .module-content-flex
+                    .module__content
                         if errors.moviesList
                             p Error fetching Movies. Please try later.
                         else
-                            .movies-container
-                                .movie(style="background-image: url(" + movies.list[0] + ")")
-                                    .movie-overlay
-                                .movie(style="background-image: url(" + movies.list[1] + ")")
-                                    .movie-overlay     
-                        .module-settings.module-settings-right.movies-settings
+                            img(src=movies.list[0])
+                            img(src=movies.list[1])
+                            //- .movie(style="background-image: url(" + movies.list[0] + ")")
+                            //-     .movie-overlay
+                            //- .movie(style="background-image: url(" + movies.list[1] + ")")
+                            //-     .movie-overlay     
+                        //- .module-settings.module-settings-right.movies-settings
                                 .movies-settings-content
                                     p.text-center Filters
                                     ul.movies-settings-filters-list

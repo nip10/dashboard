@@ -5,8 +5,6 @@ import chalk from 'chalk';
 import passport from '../auth/local';
 import authHelpers from '../auth/_helpers';
 
-import User from '../models/user';
-
 const router = express.Router();
 
 router.post('/login', (req, res, next) => {
@@ -24,18 +22,11 @@ router.post('/login', (req, res, next) => {
   passport.authenticate('local', (err, user) => {
     if (err) return res.status(500).json({ error: 'Error in passport authenticate' });
     if (!user) return res.status(404).json({ error: 'User not found' });
-    if (user) {
-      console.log(chalk.blue('User %s connected'), user.id);
-      User.getUserSettingsFromFile(user.id)
-        .then(userSettings => res.cookie('userSettings', JSON.stringify(userSettings)))
-        .then(() => {
-          req.logIn(user, (err) => {
-            if (err) return res.status(500).json({ error: 'Error in passport logIn' });
-            return res.status(200).json({ status: 'success' });
-          });
-        })
-        .catch(err => res.status(500).json({ error: err }));
-    }
+    console.log(chalk.blue('User %s connected'), user.id);
+    req.logIn(user, (err) => {
+      if (err) return res.status(500).json({ error: 'Error in passport logIn' });
+      return res.status(200).json({ status: 'success' });
+    });
   })(req, res, next);
 });
 
@@ -47,7 +38,6 @@ router.post('/signup', (req, res, next) =>
         reject();
       })(req, res, next);
     }))
-    .then(user => User.createUserSettings(user, req.acceptsLanguages()[0]))
     .then(() => res.status(200).json({ status: 'success' }))
     .catch(err => res.status(500).json({ error: err }))
 );
