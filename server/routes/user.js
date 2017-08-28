@@ -3,28 +3,15 @@ import express from 'express';
 import Helpers from '../auth/_helpers';
 import knex from '../db/connection';
 
-import User from '../models/user';
+import User from '../controllers/user';
 
 const router = express.Router();
 
 // Get all settings
 router.get('/settings', Helpers.isLoggedIn, (req, res) => {
-  Promise.all([p1, p2])
-    .then(data => console.log(data))
-    .catch(err => console.log(err));
-  // Get Weather Settings
-  const p1 = knex.select('lat', 'lng', 'city', 'country')
-    .from('weather')
-    .where('user_id', userID)
-    // .then(location => res.send({ data: location }))
-    // .catch(err => res.send({ error: err}))
-  // Get TvShows
-  const p2 = knex('tvshows')
-    .join('usertv', 'usertv.user_id', '=', userID)
-    .select('tvshows.name')
-    .whereIn('tvshows.id', 'usertv.tvshow_id')
-    // .then(tvshows => res.send({ data: tvshows }))
-    // .catch(err => res.send({ error: err }));
+  User.getUserSettings(req.user)
+    .then(settings => res.send(settings))
+    .catch(err => res.status(500).send(err));  
 });
 
 // Weather settings - edit location and unit

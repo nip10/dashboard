@@ -3,7 +3,7 @@ import knex from '../db/connection';
 
 import Helpers from '../auth/_helpers';
 
-import Weather from '../models/weather';
+import Weather from '../controllers/weather';
 
 const router = express.Router();
 
