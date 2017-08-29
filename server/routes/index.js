@@ -22,8 +22,6 @@ router.get('/dashboard', Helpers.isLoggedIn, (req, res) => {
     .then(([weatherSettings, TvShowsSettings]) => {
       const tvshows = TvShowsSettings.map(tvshow => tvshow.name);
       const weather = weatherSettings[0];
-      console.log(tvshows);
-      console.log(weather);
       const promises = [
         TvShows.getTvShows(tvshows),
         Movies.getMovies(),
